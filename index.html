@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fernando Gularte de León – CV Interactivo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #020408;
+    --biolum: #00e5c8;
+    --ghost: rgba(0,229,200,0.08);
+    --glass: rgba(0,180,255,0.05);
+    --text: #eef6fa;
+    --soft: #c8dfe8;
+    --muted: #8ab0c0;
+    --line: rgba(0,229,200,0.18);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    background:var(--void); color:var(--text);
+    font-family:'DM Mono',monospace; font-weight:300;
+    overflow-x:hidden; cursor:none;
+  }
+
+  /* ── CURSORS ── */
+  .cursor {
+    position:fixed; width:12px; height:12px;
+    background:var(--biolum); border-radius:50%;
+    pointer-events:none; z-index:9999;
+    transform:translate(-50%,-50%);
+    transition:transform .1s;
+    box-shadow:0 0 20px var(--biolum),0 0 40px rgba(0,229,200,.4);
+  }
+  .cursor-ring {
+    position:fixed; width:36px; height:36px;
+    border:1px solid rgba(0,229,200,.4); border-radius:50%;
+    pointer-events:none; z-index:9998;
+    transform:translate(-50%,-50%);
+    transition:width .3s,height .3s;
+  }
+
+  /* ── FRACTALS — mix-blend-mode:screen makes black=invisible ── */
+  .fractal-wrap {
+    position:fixed; z-index:0; pointer-events:none;
+    opacity:0; transition:opacity 2s ease;
+  }
+  #fbg-business {
+    top:-40px; right:-70px;
+    width:600px; height:430px;
+  }
+  #fbg-burgess {
+    bottom:-40px; left:-70px;
+    width:600px; height:430px;
+  }
+  .fractal-wrap canvas {
+    display:block; width:100%; height:100%;
+  }
+
+  /* ── PARTICLES ── */
+  #canvas {
+    position:fixed; top:0; left:0;
+    width:100%; height:100%;
+    z-index:1; pointer-events:none;
+  }
+
+  /* ── LAYOUT ── */
+  .wrapper { position:relative; z-index:2; max-width:1100px; margin:0 auto; padding:0 40px; }
+
+  /* ── HERO ── */
+  .hero { min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding:80px 0 60px; position:relative; }
+
+  .hero-tag {
+    font-size:10px; letter-spacing:4px; color:var(--biolum);
+    text-transform:uppercase; margin-bottom:32px;
+    opacity:0; animation:fadeUp .8s .2s forwards;
+  }
+  .hero-tag span {
+    display:inline-block; padding:6px 14px;
+    border:1px solid var(--line); border-radius:2px; background:var(--ghost);
+  }
+
+  .hero-name {
+    font-family:'Playfair Display',serif;
+    font-size:clamp(56px,8vw,114px);
+    font-weight:700; line-height:.92; letter-spacing:-2px;
+    color:#fff; opacity:0; animation:fadeUp .8s .4s forwards;
+  }
+  .hero-name .accent {
+    color:var(--biolum); font-style:italic;
+    text-shadow:0 0 60px rgba(0,229,200,.5);
+  }
+
+  .hero-subtitle {
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(20px,2.6vw,30px); font-style:italic;
+    color:var(--soft); margin-top:28px;
+    max-width:620px; line-height:1.65;
+    opacity:0; animation:fadeUp .8s .6s forwards;
+  }
+
+  .hero-meta {
+    display:flex; flex-wrap:wrap; gap:28px;
+    margin-top:52px; opacity:0; animation:fadeUp .8s .8s forwards;
+  }
+  .meta-item { display:flex; align-items:center; gap:10px; font-size:12px; letter-spacing:1px; color:var(--muted); }
+  .meta-item .dot { width:6px; height:6px; background:var(--biolum); border-radius:50%; flex-shrink:0; box-shadow:0 0 8px var(--biolum); }
+
+  .hero-scroll {
+    position:absolute; bottom:48px; left:0;
+    display:flex; align-items:center; gap:16px;
+    font-size:10px; letter-spacing:3px; color:var(--muted);
+    text-transform:uppercase; opacity:0; animation:fadeUp .8s 1.2s forwards;
+  }
+  .scroll-line { width:60px; height:1px; background:linear-gradient(90deg,var(--biolum),transparent); animation:pulse-line 2s infinite; }
+
+  /* ── NAV ── */
+  nav { position:fixed; right:40px; top:50%; transform:translateY(-50%); z-index:100; display:flex; flex-direction:column; gap:20px; }
+  .nav-dot { width:8px; height:8px; border-radius:50%; border:1px solid var(--muted); cursor:pointer; transition:all .3s; position:relative; }
+  .nav-dot::after { content:attr(data-label); position:absolute; right:20px; top:50%; transform:translateY(-50%); font-size:10px; letter-spacing:2px; color:var(--muted); white-space:nowrap; opacity:0; transition:opacity .3s; }
+  .nav-dot:hover::after,.nav-dot.active::after { opacity:1; }
+  .nav-dot:hover,.nav-dot.active { background:var(--biolum); border-color:var(--biolum); box-shadow:0 0 12px var(--biolum); }
+
+  /* ── SECTIONS ── */
+  section { padding:100px 0; border-top:1px solid var(--line); }
+  .section-label { font-size:10px; letter-spacing:4px; color:var(--biolum); text-transform:uppercase; margin-bottom:60px; display:flex; align-items:center; gap:16px; }
+  .section-label::after { content:''; flex:1; height:1px; background:var(--line); }
+  .section-title { font-family:'Playfair Display',serif; font-size:clamp(34px,5vw,58px); font-weight:400; color:#fff; line-height:1.1; margin-bottom:48px; }
+
+  /* ── ABOUT ── */
+  .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; }
+  .about-text { font-family:'Cormorant Garamond',serif; font-size:21px; line-height:1.85; color:var(--text); }
+  .about-text p+p { margin-top:22px; }
+  .about-text em { color:var(--biolum); font-style:italic; }
+
+  .about-stats { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
+  .stat-card { background:var(--glass); border:1px solid var(--line); padding:28px 24px; position:relative; overflow:hidden; transition:all .4s; cursor:default; }
+  .stat-card::before { content:''; position:absolute; top:0; left:0; width:3px; height:0; background:var(--biolum); transition:height .4s; }
+  .stat-card:hover::before { height:100%; }
+  .stat-card:hover { background:rgba(0,229,200,.04); }
+  .stat-number { font-family:'Playfair Display',serif; font-size:48px; font-weight:700; color:var(--biolum); line-height:1; text-shadow:0 0 30px rgba(0,229,200,.3); }
+  .stat-label { font-size:10px; letter-spacing:2px; color:var(--muted); margin-top:8px; text-transform:uppercase; }
+
+  /* ── TIMELINE ── */
+  .timeline { position:relative; padding-left:32px; }
+  .timeline::before { content:''; position:absolute; left:0; top:0; width:1px; height:100%; background:linear-gradient(180deg,var(--biolum),transparent); }
+  .timeline-item { position:relative; margin-bottom:56px; opacity:0; transform:translateX(-20px); transition:all .6s; }
+  .timeline-item.visible { opacity:1; transform:none; }
+  .timeline-item::before { content:''; position:absolute; left:-36px; top:6px; width:8px; height:8px; background:var(--biolum); border-radius:50%; box-shadow:0 0 12px var(--biolum),0 0 24px rgba(0,229,200,.3); }
+  .timeline-period { font-size:10px; letter-spacing:3px; color:var(--biolum); margin-bottom:8px; }
+  .timeline-role { font-family:'Playfair Display',serif; font-size:23px; color:#fff; margin-bottom:6px; }
+  .timeline-org { font-size:11px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; margin-bottom:12px; }
+  .timeline-desc { font-family:'Cormorant Garamond',serif; font-size:17px; line-height:1.75; color:#c8dfe8; max-width:600px; }
+
+  /* ── SKILLS ── */
+  .skills-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
+  .skill-cluster { background:var(--glass); border:1px solid var(--line); padding:32px 28px; transition:all .4s; position:relative; overflow:hidden; }
+  .skill-cluster::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 50% 100%,rgba(0,229,200,.06),transparent 70%); opacity:0; transition:opacity .4s; }
+  .skill-cluster:hover::after { opacity:1; }
+  .skill-cluster-title { font-size:10px; letter-spacing:3px; color:var(--biolum); text-transform:uppercase; margin-bottom:20px; display:flex; align-items:center; gap:8px; }
+  .skill-tag { display:inline-block; font-size:11.5px; padding:5px 11px; border:1px solid var(--line); border-radius:2px; margin:3px 3px 3px 0; color:var(--soft); transition:all .3s; cursor:default; }
+  .skill-tag:hover { border-color:var(--biolum); color:var(--biolum); background:var(--ghost); }
+
+  /* ── EDUCATION ── */
+  .edu-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
+  .edu-card { border:1px solid var(--line); padding:32px 28px; background:var(--glass); transition:all .4s; }
+  .edu-card:hover { background:rgba(0,229,200,.04); border-color:rgba(0,229,200,.3); }
+  .edu-degree { font-family:'Playfair Display',serif; font-size:18px; color:#fff; margin-bottom:6px; line-height:1.3; }
+  .edu-institution { font-size:10px; letter-spacing:2px; color:var(--biolum); text-transform:uppercase; margin-bottom:10px; }
+  .edu-detail { font-family:'Cormorant Garamond',serif; font-size:16px; color:#c8dfe8; line-height:1.65; }
+
+  /* ── PROJECTS ── */
+  .projects-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:2px; }
+  .project-card { border:1px solid var(--line); padding:36px 32px; background:var(--glass); transition:all .5s cubic-bezier(.25,.46,.45,.94); position:relative; overflow:hidden; cursor:default; }
+  .project-card::before { content:''; position:absolute; bottom:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,var(--biolum),transparent); transform:scaleX(0); transition:transform .4s; }
+  .project-card:hover::before { transform:scaleX(1); }
+  .project-card:hover { background:rgba(0,229,200,.03); transform:translateY(-4px); }
+  .project-index { font-size:60px; font-family:'Playfair Display',serif; color:var(--line); position:absolute; top:16px; right:24px; line-height:1; }
+  .project-name { font-family:'Playfair Display',serif; font-size:23px; color:#fff; margin-bottom:8px; }
+  .project-type { font-size:10px; letter-spacing:3px; color:var(--biolum); text-transform:uppercase; margin-bottom:16px; }
+  .project-desc { font-family:'Cormorant Garamond',serif; font-size:17px; line-height:1.75; color:#c8dfe8; }
+
+  /* ── CONTACT ── */
+  .contact-section { padding:100px 0 120px; }
+  .contact-big { font-family:'Playfair Display',serif; font-size:clamp(42px,7vw,82px); color:#fff; line-height:1.1; margin-bottom:48px; }
+  .contact-big em { font-style:italic; color:var(--biolum); text-shadow:0 0 40px rgba(0,229,200,.4); }
+  .contact-links { display:flex; flex-wrap:wrap; gap:16px; }
+  .contact-link { display:flex; align-items:center; gap:10px; padding:14px 24px; border:1px solid var(--line); color:var(--text); text-decoration:none; font-size:12px; letter-spacing:2px; text-transform:uppercase; transition:all .3s; background:var(--glass); }
+  .contact-link:hover { border-color:var(--biolum); color:var(--biolum); background:var(--ghost); box-shadow:0 0 20px rgba(0,229,200,.1); }
+
+  /* ── FOOTER ── */
+  footer { border-top:1px solid var(--line); padding:32px 0; display:flex; justify-content:space-between; align-items:center; font-size:10px; letter-spacing:2px; color:var(--muted); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes pulse-line { 0%,100%{opacity:.4} 50%{opacity:1} }
+  .reveal { opacity:0; transform:translateY(40px); transition:all .8s cubic-bezier(.25,.46,.45,.94); }
+  .reveal.visible { opacity:1; transform:none; }
+
+  @media(max-width:768px){
+    .wrapper{padding:0 24px}
+    .about-grid,.edu-grid,.projects-grid,.skills-grid{grid-template-columns:1fr}
+    nav{display:none}
+    .hero-name{font-size:52px}
+    #fbg-business,#fbg-burgess{width:300px;height:215px}
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- FRACTALES — mix-blend-mode:screen: negro=invisible, colores=visibles -->
+<div class="fractal-wrap" id="fbg-business">
+  <canvas id="fractalBusiness" width="600" height="430"></canvas>
+</div>
+<div class="fractal-wrap" id="fbg-burgess">
+  <canvas id="fractalBurgess" width="600" height="430"></canvas>
+</div>
+
+<!-- PARTÍCULAS -->
+<canvas id="canvas"></canvas>
+
+<nav>
+  <div class="nav-dot active" data-label="INICIO"      data-target="hero"       onclick="goTo('hero')"></div>
+  <div class="nav-dot"        data-label="PERFIL"      data-target="about"      onclick="goTo('about')"></div>
+  <div class="nav-dot"        data-label="TRAYECTORIA" data-target="experience" onclick="goTo('experience')"></div>
+  <div class="nav-dot"        data-label="FORMACIÓN"   data-target="education"  onclick="goTo('education')"></div>
+  <div class="nav-dot"        data-label="PROYECTOS"   data-target="projects"   onclick="goTo('projects')"></div>
+  <div class="nav-dot"        data-label="CONTACTO"    data-target="contact"    onclick="goTo('contact')"></div>
+</nav>
+
+<div class="wrapper">
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-tag"><span>◈ CV Interactivo · 2025</span></div>
+    <h1 class="hero-name">Fernando<br><span class="accent">Gularte</span><br>de León</h1>
+    <p class="hero-subtitle">Naturalista de sistemas. Tecnólogo. Escritor.<br>30 años construyendo en la frontera del orden y el caos.</p>
+    <div class="hero-meta">
+      <div class="meta-item"><span class="dot"></span> Parque del Plata, Uruguay</div>
+      <div class="meta-item"><span class="dot"></span> Ciudadanía: UY · MX</div>
+      <div class="meta-item"><span class="dot"></span> fernandogularte@gmail.com</div>
+      <div class="meta-item"><span class="dot"></span> 093 717 309</div>
+    </div>
+    <div class="hero-scroll"><span class="scroll-line"></span> Explorar trayectoria</div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-label">01 · Perfil</div>
+    <div class="about-grid">
+      <div class="reveal">
+        <h2 class="section-title">El hombre<br>del sistema</h2>
+        <div class="about-text">
+          <p>Emprendedor, tutor y tecnólogo con una pregunta central que atraviesa toda su obra: <em>cómo emerge el orden de sistemas aparentemente caóticos.</em></p>
+          <p>Fundador de GuliaLabs — arquitectura de innovación con tres brazos: BURGESS (ciencia y literatura), Cosecha Cero (agrotech IoT) y Hambre Cero (infraestructura alimentaria pública).</p>
+          <p>Treinta años de docencia. Múltiples países. Siempre en la frontera.</p>
+        </div>
+      </div>
+      <div class="about-stats reveal" style="transition-delay:.2s">
+        <div class="stat-card"><div class="stat-number">30</div><div class="stat-label">Años de docencia</div></div>
+        <div class="stat-card"><div class="stat-number">3</div><div class="stat-label">Países de operación</div></div>
+        <div class="stat-card"><div class="stat-number">7</div><div class="stat-label">Proyectos de innovación</div></div>
+        <div class="stat-card"><div class="stat-number">∞</div><div class="stat-label">Curiosidad aplicada</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-label">02 · Trayectoria</div>
+    <h2 class="section-title reveal">Tres décadas<br>de construcción</h2>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-period">2013 – Actualidad</div>
+        <div class="timeline-role">Fundador · GuliaLabs</div>
+        <div class="timeline-org">Uruguay</div>
+        <div class="timeline-desc">Desarrollo web, SEO, proyectos tecnológicos y de innovación social. Arquitectura de tres plataformas: Cosecha Cero (IoT/agrotech), Hambre Cero (red alimentaria) y BURGESS (ciencia y ficción). Pre-incubado en CIE · ORT (2025).</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-period">2008 – Actualidad</div>
+        <div class="timeline-role">Tutor Universitario en Matemática, Física y Química</div>
+        <div class="timeline-org">Uruguay · Presencial y Virtual</div>
+        <div class="timeline-desc">Apoyo a estudiantes de FING, FCien, FQ y FCEA (Udelar), ORT y UCUDAL. Más de tres décadas acumuladas de formación científica en distintas latitudes.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-period">2023 – Actualidad</div>
+        <div class="timeline-role">Co-Creador · Aula Verde 360</div>
+        <div class="timeline-org">Atlántida, Canelones, Uruguay</div>
+        <div class="timeline-desc">Laboratorio Vivo de Innovación Comunitaria en Agroecología, Tecnología y Educación Ambiental. Proyecto con María y Daniel.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-period">2019 – 2021</div>
+        <div class="timeline-role">Coinventor · Tortuga Guardián</div>
+        <div class="timeline-org">Costa Rica</div>
+        <div class="timeline-desc">Drone acuático autónomo para análisis ambiental y monitoreo de ecosistemas costeros.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-period">2017 – 2019</div>
+        <div class="timeline-role">Colaborador · Nuevos Entramados</div>
+        <div class="timeline-org">PTIC · Parque Tecnológico del Cerro, Uruguay</div>
+        <div class="timeline-desc">Proyecto educativo de innovación ciudadana. Punto de origen del prototipo de automatización de bancal que daría vida a Cosecha Cero.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-period">2006 – 2007</div>
+        <div class="timeline-role">Fundador · PyME Tecnológica</div>
+        <div class="timeline-org">Copilco Universidad · CDMX, México</div>
+        <div class="timeline-desc">Venta de hardware/software, redes y capacitación. Cliente principal: UNAM.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-period">2011 – 2012</div>
+        <div class="timeline-role">Colaborador · Biorreactor de Células Madre</div>
+        <div class="timeline-org">Argentina</div>
+        <div class="timeline-desc">Proyecto de ciberseguridad biológica aplicada a biorreactores. Intersección de tecnología, biología y sistemas de control.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="section-label">03 · Formación</div>
+    <h2 class="section-title reveal">Arquitectura<br>académica</h2>
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <div class="edu-institution">University of Colorado Boulder</div>
+        <div class="edu-degree">Master of Science in Electrical and Computer Engineering</div>
+        <div class="edu-detail">En curso. Formación avanzada en ingeniería eléctrica y computación de alcance internacional.</div>
+      </div>
+      <div class="edu-card reveal" style="transition-delay:.1s">
+        <div class="edu-institution">Facultad de Ciencias Económicas · Udelar</div>
+        <div class="edu-degree">Licenciatura en Estadística</div>
+        <div class="edu-detail">Proyecto Final: Posición de Vinos Uruguayos en el mundo — estudio en R.</div>
+      </div>
+      <div class="edu-card reveal" style="transition-delay:.2s">
+        <div class="edu-institution">Facultad de Química · Udelar</div>
+        <div class="edu-degree">Ingeniería Química → Químico (Orient. Agrícola)</div>
+        <div class="edu-detail">Trayectoria original 1990–1994. Pivot académico en 2021 hacia Agrícola y Medio Ambiente.</div>
+      </div>
+      <div class="edu-card reveal" style="transition-delay:.3s">
+        <div class="edu-institution">CompTIA · Cisco</div>
+        <div class="edu-degree">Network+ Certified Professional · CCNA</div>
+        <div class="edu-detail">Certificación Network+ (2006). CCNA Cisco. Security+ en curso.</div>
+      </div>
+      <div class="edu-card reveal" style="transition-delay:.4s">
+        <div class="edu-institution">MITx · DTU · edX</div>
+        <div class="edu-degree">Cursos de excelencia internacional</div>
+        <div class="edu-detail">Introduction to Biology (MITx, 2012) · Computational Molecular Evolution (DTU, 2013) · Calculus 1C (MITx, 2016).</div>
+      </div>
+      <div class="edu-card reveal" style="transition-delay:.5s">
+        <div class="edu-institution">CURE · Maldonado &amp; Rocha · Udelar</div>
+        <div class="edu-degree">Educación Permanente (2017 – Actualidad)</div>
+        <div class="edu-detail">Clima Ficción con Allison Mackey (CURE Maldonado) · La Science-Fiction · Ciencia y Ciencia Ficción. Taller de Guión (Santullo, 2023). Documental al Reel con Vladek Lakusta (2024–2025).</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-label">04 · Competencias</div>
+    <h2 class="section-title reveal">El mapa<br>de capacidades</h2>
+    <div class="skills-grid">
+      <div class="skill-cluster reveal">
+        <div class="skill-cluster-title">⬡ Tecnología</div>
+        <div><span class="skill-tag">Python</span><span class="skill-tag">R</span><span class="skill-tag">JavaScript</span><span class="skill-tag">HTML/CSS</span><span class="skill-tag">WordPress</span><span class="skill-tag">ESP32/MicroPython</span><span class="skill-tag">Linux</span><span class="skill-tag">IoT</span><span class="skill-tag">Apache</span></div>
+      </div>
+      <div class="skill-cluster reveal" style="transition-delay:.1s">
+        <div class="skill-cluster-title">◈ Redes &amp; Seguridad</div>
+        <div><span class="skill-tag">Network+ CompTIA</span><span class="skill-tag">CCNA Cisco</span><span class="skill-tag">Security+ (curso)</span><span class="skill-tag">Ciberseguridad Biológica</span><span class="skill-tag">Administración Linux</span></div>
+      </div>
+      <div class="skill-cluster reveal" style="transition-delay:.2s">
+        <div class="skill-cluster-title">◉ Ciencias</div>
+        <div><span class="skill-tag">Matemática</span><span class="skill-tag">Estadística</span><span class="skill-tag">Química</span><span class="skill-tag">Física</span><span class="skill-tag">Bioinformática</span><span class="skill-tag">Agroecología</span><span class="skill-tag">Biología Evolutiva</span></div>
+      </div>
+      <div class="skill-cluster reveal" style="transition-delay:.3s">
+        <div class="skill-cluster-title">✦ Creación</div>
+        <div><span class="skill-tag">Ciencia Ficción</span><span class="skill-tag">Guión Documental</span><span class="skill-tag">Escritura Científica</span><span class="skill-tag">Worldbuilding</span><span class="skill-tag">Pensamiento Sistémico</span></div>
+      </div>
+      <div class="skill-cluster reveal" style="transition-delay:.4s">
+        <div class="skill-cluster-title">◆ Idiomas</div>
+        <div><span class="skill-tag">Español · Nativo</span><span class="skill-tag">Inglés · Interm.-Avanzado</span><span class="skill-tag">Francés · Básico</span><span class="skill-tag">Portugués · Básico</span></div>
+      </div>
+      <div class="skill-cluster reveal" style="transition-delay:.5s">
+        <div class="skill-cluster-title">⬙ Emprendimiento</div>
+        <div><span class="skill-tag">Startups SaaS</span><span class="skill-tag">Incubación ORT-CIE</span><span class="skill-tag">Innovación ciudadana</span><span class="skill-tag">SEO &amp; Growth</span><span class="skill-tag">Redes internacionales</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-label">05 · Proyectos actuales</div>
+    <h2 class="section-title reveal">Tres brazos.<br>Un sistema.</h2>
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <div class="project-index">01</div>
+        <div class="project-type">Agrotech · IoT · SaaS</div>
+        <div class="project-name">Cosecha Cero</div>
+        <div class="project-desc">Plataforma de bancales inteligentes con sensores ESP32, automatización y suscripción SaaS. Mercados objetivo: Uruguay, México, Argentina y Francia. Valuación proyectada unicornio 2033.</div>
+      </div>
+      <div class="project-card reveal" style="transition-delay:.15s">
+        <div class="project-index">02</div>
+        <div class="project-type">Red alimentaria · Educación</div>
+        <div class="project-name">Hambre Cero</div>
+        <div class="project-desc">Infraestructura alimentaria pública basada en el bancal célula estándar (1.5×1.5m). Tres niveles formativos: Semilla, Raíz y Red. Expansión: Uruguay → Latam → España.</div>
+      </div>
+      <div class="project-card reveal" style="transition-delay:.3s">
+        <div class="project-index">03</div>
+        <div class="project-type">Ciencia Ficción · Saga literaria</div>
+        <div class="project-name">BURGESS</div>
+        <div class="project-desc">Saga de cuatro tomos que atraviesa 530 millones de años. Del Cámbrico al 3018. Marco teórico: Prigogine, Gould, Belousov-Zhabotinsky. Target: Editorial Minotauro.</div>
+      </div>
+      <div class="project-card reveal" style="transition-delay:.45s">
+        <div class="project-index">04</div>
+        <div class="project-type">Docencia · Abril 2026</div>
+        <div class="project-name">Del Bancal al Dato</div>
+        <div class="project-desc">Primer curso de huerta inteligente (T1) para adultos mayores, Costa de Oro. Sede: Cowork Pinares. Punto de encendido de la red Hambre Cero en Uruguay.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-section" id="contact">
+    <div class="section-label">06 · Contacto</div>
+    <h2 class="contact-big reveal">¿Construimos<br>algo <em>extraordinario</em>?</h2>
+    <div class="contact-links reveal" style="transition-delay:.2s">
+      <a href="mailto:fernandogularte@gmail.com" class="contact-link">✉ fernandogularte@gmail.com</a>
+      <a href="https://goo.gl/FwU1ZS" target="_blank" class="contact-link">◈ LinkedIn</a>
+      <a href="tel:+59893717309" class="contact-link">◉ +598 093 717 309</a>
+    </div>
+  </section>
+
+  <footer class="reveal">
+    <span>Fernando Gularte de León · GuliaLabs · 2025</span>
+    <span>Parque del Plata · Uruguay</span>
+  </footer>
+
+</div>
+
+<script>
+// ── CURSOR ────────────────────────────────────────────
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{ mx=e.clientX; my=e.clientY; cursor.style.left=mx+'px'; cursor.style.top=my+'px'; });
+(function ar(){ rx+=(mx-rx)*.12; ry+=(my-ry)*.12; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(ar); })();
+document.querySelectorAll('a,.skill-tag,.stat-card,.project-card,.nav-dot').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ ring.style.width='60px'; ring.style.height='60px'; cursor.style.transform='translate(-50%,-50%) scale(1.5)'; });
+  el.addEventListener('mouseleave',()=>{ ring.style.width='36px'; ring.style.height='36px'; cursor.style.transform='translate(-50%,-50%) scale(1)'; });
+});
+
+// ── MANDELBROT ────────────────────────────────────────
+// mix-blend-mode:screen significa que negro puro (0,0,0) = invisible.
+// No necesitamos alpha — usamos negro para el interior.
+function toPixel(cx,cy,W,H){
+  return[Math.round((cx+2.5)/3.5*W), Math.round((cy+1.25)/2.5*H)];
+}
+
+function drawMandelbrot(canvasId, wrapId, colorFn, nodes){
+  const cv=document.getElementById(canvasId);
+  const wrap=document.getElementById(wrapId);
+  const ctx=cv.getContext('2d',{alpha:true});
+  const W=cv.width, H=cv.height;
+  const MI=160;
+  const img=ctx.createImageData(W,H);
+  const d=img.data;
+  let col=0;
+
+  function chunk(){
+    const end=Math.min(col+25,W);
+    for(;col<end;col++){
+      for(let row=0;row<H;row++){
+        const x0=-2.5+(col/W)*3.5;
+        const y0=-1.25+(row/H)*2.5;
+        let x=0,y=0,n=0;
+        while(x*x+y*y<=4&&n<MI){ const xt=x*x-y*y+x0; y=2*x*y+y0; x=xt; n++; }
+        const idx=(row*W+col)*4;
+        if(n===MI){
+          // Totalmente transparente — sin fondo
+          d[idx]=0;d[idx+1]=0;d[idx+2]=0;d[idx+3]=0;
+        } else {
+          const ll=Math.log2(Math.log2(Math.max(1.001,x*x+y*y)));
+          const t=Math.min(1,Math.max(0,(n-ll+4)/MI));
+          const[r,g,b]=colorFn(t);
+          d[idx]=r;d[idx+1]=g;d[idx+2]=b;d[idx+3]=255;
+        }
+      }
+    }
+    ctx.putImageData(img,0,0);
+    if(col<W){ requestAnimationFrame(chunk); return; }
+
+    // trajectory
+    const pts=nodes.map(nd=>toPixel(nd.cx,nd.cy,W,H));
+    ctx.beginPath(); ctx.moveTo(pts[0][0],pts[0][1]);
+    for(let i=1;i<pts.length;i++) ctx.lineTo(pts[i][0],pts[i][1]);
+    ctx.strokeStyle='rgba(255,255,255,0.28)'; ctx.lineWidth=1.5;
+    ctx.setLineDash([4,5]); ctx.stroke(); ctx.setLineDash([]);
+
+    // nodes + labels — no backgrounds
+    nodes.forEach((nd,i)=>{
+      const[px,py]=pts[i];
+      // glow
+      const g=ctx.createRadialGradient(px,py,0,px,py,20);
+      g.addColorStop(0,nd.color+'dd'); g.addColorStop(1,'rgba(0,0,0,0)');
+      ctx.beginPath(); ctx.arc(px,py,20,0,Math.PI*2); ctx.fillStyle=g; ctx.fill();
+      // circle
+      ctx.beginPath(); ctx.arc(px,py,9,0,Math.PI*2); ctx.fillStyle=nd.color; ctx.fill();
+      // number
+      ctx.font='bold 11px "DM Mono",monospace';
+      ctx.fillStyle='#000'; ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.fillText(i+1,px,py+0.5);
+      // label — pure text, no background
+      const txt=nd.label.replace(/^[①②③④⑤⑥⑦⑧⑨⑩]\s*/,'');
+      ctx.font='600 9px "DM Mono",monospace';
+      const tw=ctx.measureText(txt).width;
+      const above=py>H*0.5;
+      const ly=above?py-22:py+22;
+      const lx=Math.min(Math.max(px,tw/2+4),W-tw/2-4);
+      // subtle text shadow for crispness
+      ctx.shadowColor=nd.color;
+      ctx.shadowBlur=4;
+      ctx.fillStyle=nd.color;
+      ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.fillText(txt,lx,ly);
+      ctx.shadowBlur=0;
+      ctx.textAlign='left'; ctx.textBaseline='alphabetic';
+    });
+
+    wrap.style.opacity='1';
+
+    // Máscara radial — disuelve los bordes rectangulares del canvas
+    ctx.globalCompositeOperation='destination-in';
+    const mask=ctx.createRadialGradient(W*0.5,H*0.5,W*0.08,W*0.5,H*0.5,W*0.48);
+    mask.addColorStop(0,'rgba(0,0,0,1)');
+    mask.addColorStop(0.4,'rgba(0,0,0,0.8)');
+    mask.addColorStop(0.7,'rgba(0,0,0,0.2)');
+    mask.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=mask;
+    ctx.fillRect(0,0,W,H);
+    ctx.globalCompositeOperation='source-over';
+  }
+  requestAnimationFrame(chunk);
+}
+
+// ── PALETAS (exactas del archivo Fractal Cosecha 2036)
+function businessColor(t){
+  const s=[[4,20,10],[8,80,40],[40,180,100],[74,222,128],[45,212,191],[96,165,250],[167,139,250],[244,114,182]];
+  const v=t*(s.length-1),i=Math.min(s.length-2,v|0),f=v-i,a=s[i],b=s[i+1];
+  return[Math.round(a[0]+(b[0]-a[0])*f),Math.round(a[1]+(b[1]-a[1])*f),Math.round(a[2]+(b[2]-a[2])*f)];
+}
+function burgessColor(t){
+  const s=[[4,10,6],[60,30,5],[140,70,8],[220,130,20],[251,191,36],[251,146,60],[244,63,63],[180,20,20]];
+  const v=t*(s.length-1),i=Math.min(s.length-2,v|0),f=v-i,a=s[i],b=s[i+1];
+  return[Math.round(a[0]+(b[0]-a[0])*f),Math.round(a[1]+(b[1]-a[1])*f),Math.round(a[2]+(b[2]-a[2])*f)];
+}
+
+// ── NODOS
+const bN=[
+  {cx:-1.90,cy: 0.02,color:'#4ade80',label:'① T1 Jubilados · Abr 2026'},
+  {cx:-1.60,cy: 0.14,color:'#2dd4bf',label:'② Crabbers · Jun 2026'},
+  {cx:-1.25,cy: 0.02,color:'#22c55e',label:'③ Hotmart · Jul 2026'},
+  {cx:-1.05,cy: 0.34,color:'#60a5fa',label:'④ ESP32 · Oct 2026'},
+  {cx:-0.75,cy: 0.12,color:'#4ade80',label:'⑤ SaaS beta · Ene 2027'},
+  {cx:-0.50,cy: 0.56,color:'#a78bfa',label:'⑥ T4 Microgreens · Sep 2027'},
+  {cx:-0.12,cy: 0.74,color:'#f472b6',label:'⑦ Gemelo Digital · 2028'},
+  {cx: 0.10,cy: 0.50,color:'#fb923c',label:'⑧ Consultor IA · 2029'},
+  {cx: 0.22,cy: 0.26,color:'#fbbf24',label:'⑨ $1M/mes · 2030'},
+  {cx: 0.27,cy: 0.02,color:'#4ade80',label:'⑩ Unicornio · 2036'},
+];
+const gN=[
+  {cx:-1.90,cy:-0.02,color:'#fbbf24',label:'① Cangrejos · 1979'},
+  {cx:-1.60,cy:-0.14,color:'#fb923c',label:'② Prigogine · 1993'},
+  {cx:-1.25,cy:-0.02,color:'#fbbf24',label:'③ México · 2002'},
+  {cx:-1.05,cy:-0.34,color:'#f87171',label:'④ Bancal · 2019'},
+  {cx:-0.75,cy:-0.12,color:'#fb923c',label:'⑤ Gulialabs · 2023'},
+  {cx:-0.50,cy:-0.56,color:'#fbbf24',label:'⑥ Nodo 001 · 2026'},
+  {cx:-0.12,cy:-0.74,color:'#f87171',label:'⑦ BURGESS Tomo I · 2033'},
+  {cx: 0.10,cy:-0.50,color:'#fb923c',label:'⑧ Minotauro · 2034'},
+  {cx: 0.22,cy:-0.26,color:'#fbbf24',label:'⑨ Tomo IV · 2036'},
+  {cx: 0.27,cy:-0.02,color:'#f87171',label:'⑩ Legado · 2051'},
+];
+
+drawMandelbrot('fractalBusiness','fbg-business',businessColor,bN);
+drawMandelbrot('fractalBurgess', 'fbg-burgess', burgessColor, gN);
+
+// ── PARTICLES
+const cvs=document.getElementById('canvas'),ctx2=cvs.getContext('2d');
+let W,H,pts=[];
+function resize(){ W=cvs.width=window.innerWidth; H=cvs.height=window.innerHeight; }
+window.addEventListener('resize',resize); resize();
+class P{
+  constructor(){ this.reset(); }
+  reset(){ this.x=Math.random()*W;this.y=Math.random()*H;this.vx=(Math.random()-.5)*.3;this.vy=(Math.random()-.5)*.3;this.r=Math.random()*2+.5;this.a=Math.random()*.45+.08;this.h=Math.random()<.7?175:200; }
+  update(){ this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>W||this.y<0||this.y>H)this.reset(); }
+  draw(){ ctx2.beginPath();ctx2.arc(this.x,this.y,this.r,0,Math.PI*2);ctx2.fillStyle=`hsla(${this.h},80%,65%,${this.a})`;ctx2.fill(); }
+}
+for(let i=0;i<110;i++) pts.push(new P());
+function conn(){
+  for(let i=0;i<pts.length;i++) for(let j=i+1;j<pts.length;j++){
+    const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
+    if(d<110){ctx2.beginPath();ctx2.moveTo(pts[i].x,pts[i].y);ctx2.lineTo(pts[j].x,pts[j].y);ctx2.strokeStyle=`rgba(0,229,200,${.05*(1-d/110)})`;ctx2.lineWidth=.5;ctx2.stroke();}
+  }
+}
+function loop(){ ctx2.clearRect(0,0,W,H);pts.forEach(p=>{p.update();p.draw();});conn();requestAnimationFrame(loop); }
+loop();
+
+// ── REVEALS
+const obs=new IntersectionObserver(e=>e.forEach(x=>{ if(x.isIntersecting)x.target.classList.add('visible'); }),{threshold:.1});
+document.querySelectorAll('.reveal,.timeline-item').forEach(el=>obs.observe(el));
+
+// ── NAV
+const secs=['hero','about','experience','education','projects','contact'];
+const dots=document.querySelectorAll('.nav-dot');
+function goTo(id){ document.getElementById(id)?.scrollIntoView({behavior:'smooth'}); }
+window.addEventListener('scroll',()=>{
+  let cur=''; secs.forEach(id=>{ const el=document.getElementById(id);if(el&&window.scrollY>=el.offsetTop-200)cur=id; });
+  dots.forEach(d=>d.classList.toggle('active',d.dataset.target===cur));
+});
+</script>
+</body>
+</html>
