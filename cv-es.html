@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fernando Gularte de León — Currículum Vitæ</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Spectral+SC:wght@300;400&family=Fira+Code:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --negro: #0E0D0B;
+  --tinta: #1C1A16;
+  --gris: #4A4640;
+  --gris-claro: #7A7570;
+  --verde: #1A5C1A;
+  --verde-claro: #2E7D32;
+  --filete: rgba(26,92,26,0.2);
+  --papel: #F8F5EE;
+  --blanco: #FFFFFF;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { font-size: 15px; }
+
+body {
+  background: #E8EDE5;
+  font-family: 'EB Garamond', Georgia, serif;
+  color: var(--tinta);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+.barre-print {
+  background: var(--negro);
+  padding: 10px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.barre-print span {
+  font-family: 'Fira Code', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.35);
+  text-transform: uppercase;
+}
+.btn-print {
+  font-family: 'Fira Code', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #81C784;
+  background: none;
+  border: 1px solid var(--verde);
+  padding: 6px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-print:hover { background: rgba(26,92,26,0.15); }
+
+.page {
+  background: var(--papel);
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 72px 80px 88px;
+  box-shadow: 0 4px 40px rgba(0,0,0,0.12);
+}
+
+@media print {
+  body { background: white; }
+  .barre-print { display: none; }
+  .page { box-shadow: none; padding: 40px 56px; margin: 0; max-width: 100%; }
+}
+
+/* ─── ENCABEZADO ─── */
+.encabezado {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: start;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--filete);
+  margin-bottom: 36px;
+}
+
+.enc-nombre {
+  font-family: 'EB Garamond', serif;
+  font-size: 42px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  line-height: 1.05;
+  color: var(--negro);
+}
+
+.enc-nombre span {
+  color: var(--verde-claro);
+  font-weight: 600;
+}
+
+.enc-titulo {
+  font-family: 'Fira Code', monospace;
+  font-size: 10px;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: var(--gris-claro);
+  margin-top: 8px;
+  margin-bottom: 20px;
+}
+
+.enc-contacto {
+  font-size: 13.5px;
+  color: var(--gris);
+  line-height: 1.85;
+}
+
+.enc-contacto a {
+  color: var(--verde-claro);
+  text-decoration: none;
+}
+
+.enc-meta {
+  text-align: right;
+}
+
+.enc-meta .bandera {
+  font-family: 'Fira Code', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--gris-claro);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.enc-meta .nac {
+  font-size: 13px;
+  color: var(--gris);
+  line-height: 1.7;
+  text-align: right;
+}
+
+/* ─── SECCIÓN ─── */
+.seccion { margin-bottom: 40px; }
+
+.sec-titulo {
+  font-family: 'Spectral SC', serif;
+  font-size: 10.5px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--verde);
+  margin-bottom: 18px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--filete);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sec-titulo::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--filete);
+}
+
+/* ─── PERFIL ─── */
+.perfil {
+  padding: 18px 22px;
+  border-left: 2px solid var(--verde-claro);
+  background: rgba(26,92,26,0.03);
+  margin-bottom: 40px;
+}
+.perfil p {
+  font-size: 15.5px;
+  font-style: italic;
+  line-height: 1.85;
+  color: var(--tinta);
+}
+
+/* ─── ENTRADA ─── */
+.entrada {
+  display: grid;
+  grid-template-columns: 148px 1fr;
+  gap: 0 28px;
+  margin-bottom: 22px;
+  page-break-inside: avoid;
+}
+
+.entrada-fecha {
+  font-family: 'Fira Code', monospace;
+  font-size: 11px;
+  color: var(--gris-claro);
+  letter-spacing: 0.3px;
+  padding-top: 3px;
+  line-height: 1.6;
+  text-align: right;
+}
+
+.entrada-titulo {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--negro);
+  line-height: 1.3;
+  margin-bottom: 2px;
+}
+
+.entrada-org {
+  font-family: 'Fira Code', monospace;
+  font-size: 11px;
+  color: var(--verde-claro);
+  letter-spacing: 0.3px;
+  margin-bottom: 6px;
+}
+
+.entrada-desc {
+  font-size: 14px;
+  color: var(--gris);
+  line-height: 1.75;
+}
+
+.entrada-desc ul {
+  list-style: none;
+  margin-top: 4px;
+}
+
+.entrada-desc ul li {
+  padding: 2px 0 2px 14px;
+  position: relative;
+}
+
+.entrada-desc ul li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--verde-claro);
+  font-size: 11px;
+  top: 4px;
+}
+
+/* ─── COMPETENCIAS ─── */
+.comp-grilla {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+
+.comp-tarjeta {
+  padding: 14px 16px;
+  border: 1px solid var(--filete);
+  border-top: 2px solid var(--verde-claro);
+  background: var(--blanco);
+}
+
+.comp-etiqueta {
+  font-family: 'Fira Code', monospace;
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--verde);
+  margin-bottom: 6px;
+}
+
+.comp-items {
+  font-size: 13px;
+  color: var(--gris);
+  line-height: 1.7;
+}
+
+/* ─── IDIOMAS ─── */
+.idiomas-fila {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.idioma-nombre {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--negro);
+  margin-bottom: 2px;
+}
+
+.idioma-nivel {
+  font-family: 'Fira Code', monospace;
+  font-size: 10px;
+  color: var(--gris-claro);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.idioma-barra { display: flex; gap: 3px; }
+
+.idioma-punto {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  border: 1px solid var(--verde-claro);
+  background: transparent;
+}
+.idioma-punto.lleno { background: var(--verde-claro); }
+
+/* ─── TABLA FORMACION CONTINUA ─── */
+.cert-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.cert-tabla thead {
+  background: var(--negro);
+  color: var(--papel);
+}
+
+.cert-tabla th {
+  padding: 9px 14px;
+  text-align: left;
+  font-family: 'Fira Code', monospace;
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.cert-tabla td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--filete);
+  vertical-align: top;
+  line-height: 1.55;
+  color: var(--tinta);
+}
+
+.cert-tabla tr:hover td { background: rgba(26,92,26,0.03); }
+
+.cert-tabla td:first-child {
+  font-family: 'Fira Code', monospace;
+  font-size: 11px;
+  color: var(--verde-claro);
+  white-space: nowrap;
+}
+
+.cert-tabla td:last-child {
+  font-size: 12px;
+  color: var(--gris-claro);
+  font-style: italic;
+}
+
+.badge {
+  display: inline-block;
+  font-family: 'Fira Code', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  padding: 2px 7px;
+  border-radius: 2px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+.badge-dist { background: #F1F8E9; color: #2E7D32; border: 1px solid #66BB6A; }
+.badge-open { background: #E8F5E9; color: #1B5E20; border: 1px solid #43A047; }
+.badge-labic { background: #E3F2FD; color: #1565C0; border: 1px solid #64B5F6; }
+.badge-honor { background: #FFF8E1; color: #F57F17; border: 1px solid #FFB300; }
+
+/* ─── PROYECCIÓN ─── */
+.proy-grilla {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.proy-tarjeta {
+  padding: 16px;
+  border: 1px solid var(--filete);
+  background: var(--blanco);
+  border-top: 2px solid transparent;
+}
+
+.proy-tarjeta.uy { border-top-color: #43A047; }
+.proy-tarjeta.mx { border-top-color: #E53935; }
+.proy-tarjeta.fr { border-top-color: #1E88E5; }
+
+.proy-anio {
+  font-family: 'Fira Code', monospace;
+  font-size: 20px;
+  font-weight: 300;
+  color: var(--verde-claro);
+  margin-bottom: 4px;
+}
+
+.proy-lugar {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--negro);
+  margin-bottom: 6px;
+}
+
+.proy-desc {
+  font-size: 12.5px;
+  color: var(--gris);
+  line-height: 1.6;
+}
+
+/* ─── PIE ─── */
+.pie {
+  margin-top: 52px;
+  padding-top: 18px;
+  border-top: 1px solid var(--filete);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pie-izq {
+  font-family: 'Fira Code', monospace;
+  font-size: 10px;
+  color: var(--gris-claro);
+  letter-spacing: 0.5px;
+}
+
+.pie-der {
+  font-family: 'Fira Code', monospace;
+  font-size: 10px;
+  color: var(--verde-claro);
+  letter-spacing: 1px;
+}
+
+@media (max-width: 680px) {
+  .page { padding: 32px 24px 48px; }
+  .barre-print { padding: 10px 24px; }
+  .encabezado { grid-template-columns: 1fr; }
+  .enc-meta { text-align: left; }
+  .entrada { grid-template-columns: 1fr; }
+  .entrada-fecha { text-align: left; margin-bottom: 4px; }
+  .comp-grilla { grid-template-columns: 1fr; }
+  .proy-grilla { grid-template-columns: 1fr; }
+  .cert-tabla td:last-child { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="barre-print no-print">
+  <span>Currículum Vitæ · Fernando Gularte de León · 2026</span>
+  <button class="btn-print" onclick="window.print()">Imprimir · PDF</button>
+</div>
+
+<div class="page">
+
+  <!-- ═══ ENCABEZADO ═══ -->
+  <div class="encabezado">
+    <div>
+      <div class="enc-nombre">Fernando <span>Gularte de León</span></div>
+      <div class="enc-titulo">Fundador · GuliaLabs · Symbiosis Fractale · Aula Verde 360</div>
+      <div class="enc-contacto">
+        Parque del Plata, Canelones, Uruguay<br>
+        <a href="mailto:fernandogularte@gmail.com">fernandogularte@gmail.com</a> &nbsp;·&nbsp; +598 093 717 309
+      </div>
+    </div>
+    <div class="enc-meta">
+      <span class="bandera">UY · MX</span>
+      <div class="nac">
+        Ciudadano uruguayo<br>
+        Ciudadano mexicano (naturalizado)<br>
+        <em style="color:var(--verde-claro); font-size:12px;">Pre-incubado CIE·ORT · 2025</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PERFIL ═══ -->
+  <div class="perfil">
+    <p>Educador científico, emprendedor tecnológico y escritor de ciencia ficción con 35 años de práctica en matemática, física y química a nivel universitario. Fundador del Symbiosis Fractale: sistema agroecológico de alta densidad basado en geometría de Fibonacci, espiral de Fermat y principios de Prigogine, instrumentado con IoT (ESP32) y energía solar. Activo en Uruguay desde 2026, con proyección a México (Oaxaca, 2027) y Francia (Montpellier, 2029). Participante de redes LABiC iberoamericanas y del MOOC Agricultures Urbaines de Agreenium / Les Cols Verts.</p>
+  </div>
+
+  <!-- ═══ PROYECTO CENTRAL ═══ -->
+  <div class="seccion">
+    <div class="sec-titulo">Proyecto central</div>
+
+    <div class="entrada">
+      <div class="entrada-fecha">2026 —<br>en curso</div>
+      <div>
+        <div class="entrada-titulo">Symbiosis Fractale</div>
+        <div class="entrada-org">GuliaLabs · Parque del Plata, Uruguay</div>
+        <div class="entrada-desc">
+          Biorreactor agroecológico de alta densidad. Cajón con proporciones áureas (1,62 m × 1,00 m × 0,35 m, largo/ancho = φ = 1,618), con 42 plantas distribuidas en espiral de Fermat según el ángulo áureo de 137,5°: 8 tomateras, 13 albahacas, 21 zanahorias Chantenay (tres números consecutivos de Fibonacci). Riego de precisión por ESP32 y panel solar. Primer prototipo: factor de rendimiento 3× respecto a diseño lineal convencional, sin optimización.
+          <ul>
+            <li>Nodo I+D: Parque del Plata, Uruguay (2026)</li>
+            <li>Nodo público: Aula Verde 360, Parque Azul, Atlántida, Canelones (2026)</li>
+            <li>Nodo tropical: Milpa Fractal, Estacahuite, Oaxaca, México (2027)</li>
+            <li>Objetivo: Montpellier, Francia (2029)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="entrada">
+      <div class="entrada-fecha">2023 —<br>en curso</div>
+      <div>
+        <div class="entrada-titulo">Aula Verde 360 — Laboratorio Vivo</div>
+        <div class="entrada-org">Cofundador · Parque Azul, Atlántida, Canelones, Uruguay</div>
+        <div class="entrada-desc">
+          Laboratorio comunitario de agroecología, tecnología ciudadana e inclusión en el ex Zoológico de Atlántida. Articulado con UTU, UTEC, CURE y Municipio de Atlántida. Tres etapas: activación comunitaria, infraestructura técnica (Fablab, sensores, estación meteorológica), modelo regional replicable. Candidato a redes LABiC latinoamericanas y Les Cols Verts (Francia).
+        </div>
+      </div>
+    </div>
+
+    <div class="entrada">
+      <div class="entrada-fecha">2013 —<br>en curso</div>
+      <div>
+        <div class="entrada-titulo">GuliaLabs</div>
+        <div class="entrada-org">Fundador · Uruguay</div>
+        <div class="entrada-desc">
+          Empresa de innovación tecnológica con tres brazos: Cosecha Cero (plataforma IoT SaaS para bancales automatizados), Hambre Cero (red pública de nodos agroecológicos) y BURGESS (saga de ciencia ficción, cuatro volúmenes). Pre-incubado en CIE·ORT (2025).
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ EXPERIENCIA ═══ -->
+  <div class="seccion">
+    <div class="sec-titulo">Experiencia profesional</div>
+
+    <div class="entrada">
+      <div class="entrada-fecha">1991 —<br>en curso</div>
+      <div>
+        <div class="entrada-titulo">Tutor universitario de ciencias exactas</div>
+        <div class="entrada-org">Uruguay y México · Udelar (FCEA, FCien, FQ, FING) · ORT · UCUDAL</div>
+        <div class="entrada-desc">35 años de práctica ininterrumpida en matemática, física, química y estadística a nivel universitario. Estudiantes de ingeniería, ciencias, economía y química. Metodología adaptativa por perfil de estudiante; preparación para exámenes de alto rendimiento.</div>
+      </div>
+    </div>
+
+    <div class="entrada">
+      <div class="entrada-fecha">2019 — 2021</div>
+      <div>
+        <div class="entrada-titulo">Tortuga Guardián — Dron acuático ambiental</div>
+        <div class="entrada-org">Costa Rica</div>
+        <div class="entrada-desc">Co-desarrollo de prototipo de dron acuático autónomo para análisis ambiental de cuerpos de agua. Integración de sensores, diseño de hardware y software embebido.</div>
+      </div>
+    </div>
+
+    <div class="entrada">
+      <div class="entrada-fecha">2017 — 2019</div>
+      <div>
+        <div class="entrada-titulo">Nuevos Entramados — Innovación educativa</div>
+        <div class="entrada-org">Parque Tecnológico Industrial del Cerro (PTIC), Uruguay</div>
+        <div class="entrada-desc">Proyecto de educación tecnológica aplicada en contexto de vulnerabilidad social. Diseño curricular, facilitación y vínculo con el ecosistema tecnológico uruguayo.</div>
+      </div>
+    </div>
+
+    <div class="entrada">
+      <div class="entrada-fecha">2011 — 2012</div>
+      <div>
+        <div class="entrada-titulo">Biorreactor de Células Madre — Colaboración</div>
+        <div class="entrada-org">Universidad Nacional del Sur · Bahía Blanca, Argentina · Jorge Pedrueza</div>
+        <div class="entrada-desc">Colaboración en investigación biotecnológica. Aporte específico: protección de datos y seguridad de la información.</div>
+      </div>
+    </div>
+
+    <div class="entrada">
+      <div class="entrada-fecha">2006 — 2007</div>
+      <div>
+        <div class="entrada-titulo">PyME Tecnológica — Copilco Universidad</div>
+        <div class="entrada-org">Ciudad de México, México</div>
+        <div class="entrada-desc">Fundación y dirección de empresa de hardware, software, redes y capacitación. Cliente principal: UNAM. Administración de servidores Apache, desarrollo web y tutoría universitaria.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ FORMACIÓN ═══ -->
+  <div class="seccion">
+    <div class="sec-titulo">Formación académica</div>
+
+    <div class="entrada">
+      <div class="entrada-fecha">2021 —<br>en curso</div>
+      <div>
+        <div class="entrada-titulo">Químico — Orientación Agrícola y Medio Ambiente</div>
+        <div class="entrada-org">Facultad de Química · Universidad de la República, Uruguay (Udelar)</div>
+        <div class="entrada-desc">Pivot de carrera desde Ingeniería Química (1990–1994) hacia orientación agrícola y ambiental. Estadística Descriptiva — <em>Excelente</em> (2021). Proyecto final: posición de vinos uruguayos en el mundo — análisis en R.</div>
+      </div>
+    </div>
+
+    <div class="entrada">
+      <div class="entrada-fecha">2008</div>
+      <div>
+        <div class="entrada-titulo">Reválidas aprobadas — Ingeniería</div>
+        <div class="entrada-org">Facultad de Ingeniería · Udelar</div>
+        <div class="entrada-desc">Cálculo 1 y 2, Geometría y Álgebra Lineal, Probabilidad y Estadística, Métodos Numéricos.</div>
+      </div>
+    </div>
+
+    <div class="entrada">
+      <div class="entrada-fecha">1989</div>
+      <div>
+        <div class="entrada-titulo">Bachillerato — Opción Ingeniería y Orientación Científica</div>
+        <div class="entrada-org">Instituto Francisco Bauzá, Uruguay</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ FORMACIÓN CONTINUA ═══ -->
+  <div class="seccion">
+    <div class="sec-titulo">Formación continua y certificaciones</div>
+
+    <table class="cert-tabla">
+      <thead>
+        <tr>
+          <th>Año</th>
+          <th>Curso / Certificación</th>
+          <th>Institución</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>2025</td><td>Agricultures urbaines — Badge de réussite <span class="badge badge-open">Open Badge</span></td><td>Agreenium · Les Cols Verts · FUN-MOOC · Francia</td></tr>
+        <tr><td>2025</td><td>Les précarités alimentaires — Badge de réussite <span class="badge badge-open">Open Badge</span></td><td>CNFPT · FUN-MOOC · Francia</td></tr>
+        <tr><td>2025</td><td>Médecine et santé environnementale — Badge de réussite <span class="badge badge-open">Open Badge</span></td><td>CNFPT · FUN-MOOC · Francia</td></tr>
+        <tr><td>2024</td><td>Ablando los Ojos — Del Documental al Reel · <em>Muy Bueno</em></td><td>CURE · Udelar · Rocha</td></tr>
+        <tr><td>2023</td><td>Modern Techniques in Riemannian Geometry — Workshop</td><td>UNAM · Facultad de Ciencias · Durham University</td></tr>
+        <tr><td>2023</td><td>ProtoTips: Proyectos educativos en robótica y automatización · 10h</td><td>ProFuturo · Fundación La Caixa · Telefónica · MEC Uruguay</td></tr>
+        <tr><td>2023</td><td>Curso de Guion — Certificado de finalización</td><td>Rodolfo Santullo · Uruguay</td></tr>
+        <tr><td>2020</td><td>Poténciate con redes sociales · 20h</td><td>Universidad Rey Juan Carlos · Miriadax</td></tr>
+        <tr><td>2019</td><td>LABiC Costa Rica — Laboratorio de Innovación Ciudadana · Medio Ambiente <span class="badge badge-labic">LABiC</span></td><td>Secretaría Gral. Iberoamericana · Comisión Europea · Univ. EARTH</td></tr>
+        <tr><td>2019</td><td>Abeilles et environnement — Attestation de suivi avec succès</td><td>Oniris · École Nationale Vétérinaire · FUN-MOOC · Francia</td></tr>
+        <tr><td>2019</td><td>Gaspillage Alimentaire — Attestation de suivi avec succès</td><td>AgroParisTech · FUN-MOOC · Francia</td></tr>
+        <tr><td>2019</td><td>La science-fiction : explorer le futur au présent — Attestation</td><td>Université d'Artois · FUN-MOOC · Francia</td></tr>
+        <tr><td>2019</td><td>¿Cómo gestionar los riesgos agrarios y ambientales? · 32h</td><td>Universidad Politécnica de Madrid · Miriadax</td></tr>
+        <tr><td>2019</td><td>Gestión de proyectos con metodologías Ágiles y Lean · 40h</td><td>Universitas Telefónica · Miriadax</td></tr>
+        <tr><td>2017</td><td>Introduction à l'économie de l'innovation — Attestation</td><td>Université de Bordeaux · FUN-MOOC · Francia</td></tr>
+        <tr><td>2017</td><td>Clima Ficción</td><td>CURE Maldonado · Udelar</td></tr>
+        <tr><td>2017</td><td>Emprendimiento Social: pon tu proyecto en marcha · 30h</td><td>Universitas Telefónica · Miriadax</td></tr>
+        <tr><td>2017</td><td>Nuevos Entramados — Modelo de Negocios CANVAS · 24h, 8 talleres</td><td>PTIC · Facultad de Ingeniería · IPRU · ANDE · OPP · Uruguay</td></tr>
+        <tr><td>2016</td><td>CNR101x: Cognitive Neuroscience Robotics — Honor Code</td><td>Osaka University · OsakaUx · edX</td></tr>
+        <tr><td>2016</td><td>Desarrollo de ideas innovadoras · 16h</td><td>Universidad EAFIT · Miriadax</td></tr>
+        <tr><td>2016</td><td>Calculus 1C — Coordinate Systems and Infinite Series</td><td>MITx · edX</td></tr>
+        <tr><td>2015</td><td>LABiC Brasil — Aprender Jugando: Tejidos Afectivos para el Aprendizaje en Red <span class="badge badge-labic">LABiC</span></td><td>Secretaría Gral. Iberoamericana · Ministerio de Cultura de Brasil</td></tr>
+        <tr><td>2015</td><td>BIOC300.1x: Proteins — Biology's Workforce — Honor Code <span class="badge badge-honor">Honor Code</span></td><td>Rice University · RICEx · edX</td></tr>
+        <tr><td>2015</td><td>ColWri2.1x: How to Write an Essay — Honor Code <span class="badge badge-honor">Honor Code</span></td><td>University of California, Berkeley · edX</td></tr>
+        <tr><td>2015</td><td>Estadística para investigadores · 35h · Pearson · Regresión · Chi² · t de Student</td><td>Universidad de Salamanca · Miriadax</td></tr>
+        <tr><td>2014</td><td>AdvBIO.1x: Preparing for AP Biology Exam — The Cell — Honor Code <span class="badge badge-honor">Honor Code</span></td><td>Rice University · RiceX · edX</td></tr>
+        <tr><td>2014</td><td>Pensamiento algorítmico · 40h</td><td>Tecnológico de Monterrey · Coursera</td></tr>
+        <tr><td>2014</td><td>Physics 1 for Physical Science Majors — Mecánica Clásica</td><td>University of Colorado Boulder · Coursera</td></tr>
+        <tr><td>2014</td><td>Programming for Everybody (Python) <span class="badge badge-dist">With Distinction</span></td><td>University of Michigan · Coursera</td></tr>
+        <tr><td>2014</td><td>Fundamentos de la escritura en español <span class="badge badge-dist">With Distinction</span></td><td>Tecnológico de Monterrey · Coursera</td></tr>
+        <tr><td>2013</td><td>Computational Molecular Evolution</td><td>Technical University of Denmark (DTU) · edX</td></tr>
+        <tr><td>2013</td><td>7.00x: Introduction to Biology — The Secret of Life — Honor Code <span class="badge badge-honor">Honor Code</span></td><td>MITx · edX · Eric S. Lander (MIT / Harvard)</td></tr>
+        <tr><td>2012</td><td>Introduction to Biology — The Science of Life</td><td>MITx · edX</td></tr>
+        <tr><td>2011</td><td>Bottlenecks in the Establishment of Biotech-Based Companies — Taller</td><td>Instituto Leloir · MINCyT Argentina · ICGEB · Buenos Aires</td></tr>
+        <tr><td>2006</td><td>Network+ Certified Professional</td><td>CompTIA · Estados Unidos</td></tr>
+        <tr><td>2006</td><td>CCNA — Cisco Certified Network Associate</td><td>Cisco Systems</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══ COMPETENCIAS ═══ -->
+  <div class="seccion">
+    <div class="sec-titulo">Competencias técnicas</div>
+    <div class="comp-grilla">
+      <div class="comp-tarjeta">
+        <div class="comp-etiqueta">Ciencias exactas</div>
+        <div class="comp-items">Matemática · Física · Química · Estadística · Cálculo numérico · Fisicoquímica</div>
+      </div>
+      <div class="comp-tarjeta">
+        <div class="comp-etiqueta">Tecnología IoT</div>
+        <div class="comp-items">ESP32 · MicroPython · Sensores capacitivos · Electroválvulas · Panel solar · Riego de precisión</div>
+      </div>
+      <div class="comp-tarjeta">
+        <div class="comp-etiqueta">Datos y programación</div>
+        <div class="comp-items">Python · R · Series temporales · ggplot2 · HTML · CSS · JavaScript · Linux</div>
+      </div>
+      <div class="comp-tarjeta">
+        <div class="comp-etiqueta">Redes y seguridad</div>
+        <div class="comp-items">CCNA · Network+ · Admin. Linux · Servidores Apache · Ciberseguridad</div>
+      </div>
+      <div class="comp-tarjeta">
+        <div class="comp-etiqueta">Agroecología</div>
+        <div class="comp-items">Policultivo · Filotaxis áurea · Espiral de Fermat · Estructuras disipativas · Milpa tradicional</div>
+      </div>
+      <div class="comp-tarjeta">
+        <div class="comp-etiqueta">Gestión e innovación</div>
+        <div class="comp-items">Emprendimiento tecnológico · ESS · Gobernanza participativa · Ciencia ciudadana · Canvas</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ IDIOMAS ═══ -->
+  <div class="seccion">
+    <div class="sec-titulo">Idiomas</div>
+    <div class="idiomas-fila">
+      <div>
+        <div class="idioma-nombre">Español</div>
+        <div class="idioma-nivel">Lengua materna</div>
+        <div class="idioma-barra">
+          <div class="idioma-punto lleno"></div><div class="idioma-punto lleno"></div>
+          <div class="idioma-punto lleno"></div><div class="idioma-punto lleno"></div>
+          <div class="idioma-punto lleno"></div>
+        </div>
+      </div>
+      <div>
+        <div class="idioma-nombre">Inglés</div>
+        <div class="idioma-nivel">Intermedio avanzado · B2</div>
+        <div class="idioma-barra">
+          <div class="idioma-punto lleno"></div><div class="idioma-punto lleno"></div>
+          <div class="idioma-punto lleno"></div><div class="idioma-punto lleno"></div>
+          <div class="idioma-punto"></div>
+        </div>
+      </div>
+      <div>
+        <div class="idioma-nombre">Français</div>
+        <div class="idioma-nivel">En curso · A2→B1 · 2026</div>
+        <div class="idioma-barra">
+          <div class="idioma-punto lleno"></div><div class="idioma-punto lleno"></div>
+          <div class="idioma-punto"></div><div class="idioma-punto"></div>
+          <div class="idioma-punto"></div>
+        </div>
+      </div>
+      <div>
+        <div class="idioma-nombre">Português</div>
+        <div class="idioma-nivel">Básico · comprensión</div>
+        <div class="idioma-barra">
+          <div class="idioma-punto lleno"></div><div class="idioma-punto"></div>
+          <div class="idioma-punto"></div><div class="idioma-punto"></div>
+          <div class="idioma-punto"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PRODUCCIÓN INTELECTUAL ═══ -->
+  <div class="seccion">
+    <div class="sec-titulo">Producción intelectual</div>
+
+    <div class="entrada">
+      <div class="entrada-fecha">En curso</div>
+      <div>
+        <div class="entrada-titulo">BURGESS — Saga de ciencia ficción · 4 volúmenes</div>
+        <div class="entrada-org">GuliaLabs</div>
+        <div class="entrada-desc">Saga que abarca 530 millones de años. El Tomo III toma a la civilización zapoteca como modelo de resiliencia distribuida sin nodo central — el mismo marco teórico del Symbiosis Fractale aplicado a la narrativa. La pregunta fundadora de ambos proyectos es idéntica: ¿cómo emerge el orden en sistemas aparentemente caóticos?</div>
+      </div>
+    </div>
+
+    <div class="entrada">
+      <div class="entrada-fecha">2026</div>
+      <div>
+        <div class="entrada-titulo">Antología de Ciencia Ficción — publicada</div>
+        <div class="entrada-org">Publicación independiente</div>
+        <div class="entrada-desc">También: <em>Cuentos del Palacio</em> y <em>13 Cuentos Sorprendentes</em>.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PROYECCIÓN ═══ -->
+  <div class="seccion">
+    <div class="sec-titulo">Trayectoria 2026 — 2029</div>
+    <div class="proy-grilla">
+      <div class="proy-tarjeta uy">
+        <div class="proy-anio">2026</div>
+        <div class="proy-lugar">Uruguay</div>
+        <div class="proy-desc">Cajón 2 Symbiosis Fractale · datos ESP32 · MOOC Agreenium · candidatura Les Cols Verts · Aula Verde 360 Atlántida · Python + R (Udelar)</div>
+      </div>
+      <div class="proy-tarjeta mx">
+        <div class="proy-anio">2027</div>
+        <div class="proy-lugar">México · Oaxaca</div>
+        <div class="proy-desc">Milpa Fractal Estacahuite · 4 hermanas Fibonacci · datos climáticos tropicales · publicación con CURE Maldonado · objetivo 2.000 USD/mes</div>
+      </div>
+      <div class="proy-tarjeta fr">
+        <div class="proy-anio">2029</div>
+        <div class="proy-lugar">Francia · Montpellier</div>
+        <div class="proy-desc">Carte Talent — Porteur de projet innovant · Les Cols Verts · Agreenium / INRAE / CIRAD · desarrollo en contexto mediterráneo</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PIE ═══ -->
+  <div class="pie">
+    <div class="pie-izq">Fernando Gularte de León · fernandogularte@gmail.com · +598 093 717 309</div>
+    <div class="pie-der">Marzo 2026 · Versión español</div>
+  </div>
+
+</div>
+
+</body>
+</html>
