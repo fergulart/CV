@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aula Verde 360 — Propuesta de Gobernanza</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --verde-oscuro: #1A4A1A;
+  --verde: #2E7D32;
+  --verde-medio: #4CAF50;
+  --verde-claro: #81C784;
+  --verde-faint: #F1F8F1;
+  --tierra: #5D4037;
+  --tierra-claro: #8D6E63;
+  --dorado: #F9A825;
+  --papel: #FAFAF6;
+  --blanco: #FFFFFF;
+  --tinta: #1A1A1A;
+  --gris: #5A5A5A;
+  --gris-claro: #9A9A9A;
+  --borde: rgba(46,125,50,0.15);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── HEADER ─── */
+header {
+  background: var(--verde-oscuro);
+  color: white;
+  padding: 64px 52px 56px;
+  position: relative;
+  overflow: hidden;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 20px,
+    rgba(255,255,255,0.02) 20px,
+    rgba(255,255,255,0.02) 21px
+  );
+}
+
+header::after {
+  content: '🌿';
+  position: absolute;
+  right: 52px;
+  bottom: -10px;
+  font-size: 160px;
+  opacity: 0.06;
+  pointer-events: none;
+}
+
+.header-tag {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--verde-claro);
+  margin-bottom: 14px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+header h1 {
+  font-family: 'Lora', serif;
+  font-size: clamp(30px, 5vw, 52px);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+header h1 em {
+  font-style: italic;
+  color: var(--verde-claro);
+}
+
+.header-sub {
+  font-size: 15px;
+  color: rgba(255,255,255,0.6);
+  margin-top: 12px;
+  max-width: 560px;
+  line-height: 1.85;
+}
+
+.header-rule {
+  width: 48px;
+  height: 2px;
+  background: var(--verde-medio);
+  margin: 20px 0;
+}
+
+.header-para-maria {
+  display: inline-block;
+  margin-top: 8px;
+  background: rgba(129,199,132,0.15);
+  border: 1px solid rgba(129,199,132,0.3);
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 13px;
+  color: var(--verde-claro);
+  font-style: italic;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--verde-oscuro);
+  border-bottom: 1px solid rgba(129,199,132,0.2);
+  padding: 0 52px;
+  display: flex;
+  overflow-x: auto;
+}
+
+nav a {
+  display: block;
+  padding: 14px 16px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+nav a:hover {
+  color: var(--verde-claro);
+  border-bottom-color: var(--verde-medio);
+}
+
+/* ─── MAIN ─── */
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 48px 80px;
+}
+
+/* ─── SECCIÓN ─── */
+.seccion {
+  margin-top: 64px;
+  scroll-margin-top: 56px;
+}
+
+.sec-eyebrow {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--verde);
+  margin-bottom: 8px;
+}
+
+.sec-titulo {
+  font-family: 'Lora', serif;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--tinta);
+  margin-bottom: 6px;
+}
+
+.sec-titulo em {
+  font-style: italic;
+  color: var(--verde);
+}
+
+.sec-intro {
+  font-size: 15px;
+  color: var(--gris);
+  max-width: 680px;
+  line-height: 1.85;
+  margin-top: 12px;
+  margin-bottom: 28px;
+}
+
+.regla-verde {
+  width: 40px;
+  height: 2px;
+  background: var(--verde);
+  margin: 14px 0 24px;
+}
+
+/* ─── CARDS ─── */
+.card {
+  background: var(--blanco);
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  padding: 24px 28px;
+  margin-bottom: 14px;
+}
+
+.card-verde {
+  background: var(--verde-faint);
+  border: 1px solid rgba(46,125,50,0.2);
+  border-left: 3px solid var(--verde);
+  border-radius: 0 8px 8px 0;
+  padding: 20px 24px;
+  margin-bottom: 14px;
+}
+
+.card-titulo {
+  font-family: 'Lora', serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--tinta);
+  margin-bottom: 8px;
+}
+
+.card-body {
+  font-size: 14px;
+  color: var(--gris);
+  line-height: 1.8;
+}
+
+/* ─── GRIDS ─── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+
+/* ─── PERSONA CARD ─── */
+.persona {
+  background: var(--blanco);
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  padding: 24px;
+  border-top: 3px solid transparent;
+}
+
+.persona-maria { border-top-color: var(--verde); }
+.persona-daniel { border-top-color: var(--tierra); }
+.persona-fernando { border-top-color: var(--dorado); }
+
+.persona-inicial {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Lora', serif;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.inicial-m { background: rgba(46,125,50,0.1); color: var(--verde); }
+.inicial-d { background: rgba(93,64,55,0.1); color: var(--tierra); }
+.inicial-f { background: rgba(249,168,37,0.1); color: var(--tierra); }
+
+.persona-nombre {
+  font-family: 'Lora', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--tinta);
+  margin-bottom: 4px;
+}
+
+.persona-rol {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gris-claro);
+  margin-bottom: 12px;
+}
+
+.persona-aporta {
+  font-size: 13px;
+  color: var(--gris);
+  line-height: 1.75;
+}
+
+.persona-tag {
+  display: inline-block;
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin: 2px 2px 8px 0;
+  font-weight: 500;
+}
+
+.tag-verde { background: rgba(46,125,50,0.1); color: var(--verde); }
+.tag-tierra { background: rgba(93,64,55,0.1); color: var(--tierra); }
+.tag-dorado { background: rgba(249,168,37,0.1); color: #7A6000; }
+
+/* ─── PASOS ─── */
+.pasos { position: relative; }
+
+.pasos::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 40px;
+  bottom: 20px;
+  width: 1px;
+  background: rgba(46,125,50,0.2);
+}
+
+.paso {
+  display: flex;
+  gap: 20px;
+  padding: 16px 0;
+}
+
+.paso-num {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--verde-faint);
+  border: 2px solid var(--verde);
+  color: var(--verde);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Lora', serif;
+  font-weight: 700;
+  font-size: 16px;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.paso-content { flex: 1; padding-top: 6px; }
+
+.paso-etiqueta {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--verde);
+  margin-bottom: 4px;
+}
+
+.paso-titulo {
+  font-family: 'Lora', serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--tinta);
+  margin-bottom: 4px;
+}
+
+.paso-body {
+  font-size: 13.5px;
+  color: var(--gris);
+  line-height: 1.8;
+}
+
+/* ─── OBJETIVOS ─── */
+.objetivo {
+  display: flex;
+  gap: 18px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--borde);
+  align-items: flex-start;
+}
+.objetivo:last-child { border-bottom: none; }
+
+.objetivo-num {
+  font-family: 'Lora', serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: rgba(46,125,50,0.2);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 40px;
+}
+
+.objetivo-titulo {
+  font-family: 'Lora', serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--tinta);
+  margin-bottom: 4px;
+}
+
+.objetivo-body {
+  font-size: 13.5px;
+  color: var(--gris);
+  line-height: 1.8;
+}
+
+/* ─── ALERTA ─── */
+.alerta {
+  padding: 18px 22px;
+  border-radius: 8px;
+  margin: 20px 0;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.alerta-verde {
+  background: var(--verde-faint);
+  border: 1px solid rgba(46,125,50,0.25);
+}
+
+.alerta-tierra {
+  background: rgba(93,64,55,0.05);
+  border: 1px solid rgba(93,64,55,0.2);
+}
+
+.alerta-dorado {
+  background: rgba(249,168,37,0.06);
+  border: 1px solid rgba(249,168,37,0.25);
+}
+
+.alerta-etiqueta {
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.et-verde { color: var(--verde); }
+.et-tierra { color: var(--tierra); }
+.et-dorado { color: #7A6000; }
+
+/* ─── TABLA EXPANSIÓN ─── */
+.exp-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+.exp-tabla thead {
+  background: var(--verde-oscuro);
+  color: white;
+}
+
+.exp-tabla th {
+  padding: 11px 16px;
+  text-align: left;
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.exp-tabla td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--borde);
+  vertical-align: top;
+  line-height: 1.65;
+  color: var(--gris);
+}
+
+.exp-tabla tr:hover td { background: var(--verde-faint); }
+
+.exp-tabla td:first-child {
+  font-weight: 500;
+  color: var(--verde-oscuro);
+  white-space: nowrap;
+}
+
+/* ─── INGRESO BOX ─── */
+.ingreso-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 4px; }
+
+.ingreso-card {
+  background: var(--blanco);
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+}
+
+.ingreso-icono {
+  font-size: 28px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.ingreso-titulo {
+  font-family: 'Lora', serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--tinta);
+  margin-bottom: 6px;
+}
+
+.ingreso-desc {
+  font-size: 12.5px;
+  color: var(--gris);
+  line-height: 1.65;
+}
+
+/* ─── PREGUNTA FINAL ─── */
+.pregunta-final {
+  background: var(--verde-oscuro);
+  color: white;
+  border-radius: 12px;
+  padding: 40px 44px;
+  margin-top: 48px;
+  text-align: center;
+}
+
+.pregunta-final h2 {
+  font-family: 'Lora', serif;
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: white;
+}
+
+.pregunta-final p {
+  font-size: 15px;
+  color: rgba(255,255,255,0.7);
+  max-width: 540px;
+  margin: 0 auto 24px;
+  line-height: 1.85;
+}
+
+.pregunta-btn {
+  display: inline-block;
+  background: var(--verde-medio);
+  color: var(--verde-oscuro);
+  font-weight: 500;
+  padding: 12px 28px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  margin: 6px;
+  border: none;
+  transition: background 0.2s;
+}
+
+.pregunta-btn:hover { background: var(--verde-claro); }
+
+.pregunta-btn.secundario {
+  background: transparent;
+  color: var(--verde-claro);
+  border: 1px solid rgba(129,199,132,0.4);
+}
+
+.pregunta-btn.secundario:hover { background: rgba(129,199,132,0.1); }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--verde-oscuro);
+  color: rgba(255,255,255,0.4);
+  padding: 28px 52px;
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+footer strong { color: var(--verde-claro); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 640px) {
+  header, nav, main { padding-left: 20px; padding-right: 20px; }
+  .grid-2, .grid-3, .ingreso-grid { grid-template-columns: 1fr; }
+  .pregunta-final { padding: 28px 24px; }
+  footer { padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-tag">GuliaLabs · Hambre Cero · Propuesta de trabajo conjunto</div>
+  <h1>Aula Verde 360<br><em>Atlántida, Canelones</em></h1>
+  <div class="header-rule"></div>
+  <p class="header-sub">Un laboratorio vivo de agroecología, tecnología ciudadana e inclusión. Cómo trabajamos juntos, qué aporta cada uno, y hacia dónde vamos.</p>
+  <div class="header-para-maria">Para María — propuesta de gobernanza y expansión territorial · Marzo 2026</div>
+</header>
+
+<nav>
+  <a href="#origen">El origen</a>
+  <a href="#equipo">El equipo</a>
+  <a href="#espacio">El espacio</a>
+  <a href="#objetivos">Objetivos</a>
+  <a href="#gobernanza">Gobernanza</a>
+  <a href="#ingresos">Ingresos</a>
+  <a href="#expansion">Expansión</a>
+  <a href="#propiedad">Propiedad</a>
+  <a href="#proximos">Próximos pasos</a>
+</nav>
+
+<main>
+
+  <!-- ═══ ORIGEN ═══ -->
+  <div class="seccion" id="origen">
+    <div class="sec-eyebrow">El punto de partida</div>
+    <h2 class="sec-titulo">De dónde viene<br><em>el Aula Verde 360</em></h2>
+    <div class="regla-verde"></div>
+    <p class="sec-intro">El Aula Verde 360 no nació de un plan. Nació de una convergencia: un espacio que necesitaba vida, una comunidad que necesitaba herramientas, y dos personas con capacidades complementarias que se cruzaron en el momento correcto.</p>
+
+    <div class="pasos">
+      <div class="paso">
+        <div class="paso-num">1</div>
+        <div class="paso-content">
+          <div class="paso-etiqueta">Antecedente · 2023</div>
+          <div class="paso-titulo">El Taller de Huerta del Parque Azul</div>
+          <div class="paso-body">Pablo Marrero coordinó entre marzo y septiembre de 2023 un taller de huerta agroecológica en el ex Zoológico de Atlántida — hoy Parque Azul. Los resultados fueron exitosos y demostraron que el espacio tiene potencial real para este tipo de proyecto.</div>
+        </div>
+      </div>
+      <div class="paso">
+        <div class="paso-num">2</div>
+        <div class="paso-content">
+          <div class="paso-etiqueta">El sistema · 2026</div>
+          <div class="paso-titulo">Symbiosis Fractale — la metodología</div>
+          <div class="paso-body">Fernando Gularte desarrolló el Symbiosis Fractale: un sistema de cultivo de alta densidad basado en geometría matemática (número áureo, espiral de Fermat) y gestionado por tecnología de sensores (ESP32, energía solar). El primer prototipo produjo el triple de lo esperado sin optimización. Esa metodología es la base técnica del Aula Verde.</div>
+        </div>
+      </div>
+      <div class="paso">
+        <div class="paso-num">3</div>
+        <div class="paso-content">
+          <div class="paso-etiqueta">La convergencia · Hoy</div>
+          <div class="paso-titulo">Aula Verde 360 — el proyecto conjunto</div>
+          <div class="paso-body">María trae el territorio: la red institucional, el vínculo con la Intendencia, los consejos vecinales, el conocimiento de Canelones. Fernando trae la metodología técnica y el sistema. Daniel trae la tierra y los bioinsumos. Los tres juntos hacen posible algo que ninguno de los tres puede hacer solo.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ EQUIPO ═══ -->
+  <div class="seccion" id="equipo">
+    <div class="sec-eyebrow">Las personas</div>
+    <h2 class="sec-titulo">El equipo fundador —<br><em>tres roles que no se superponen</em></h2>
+    <div class="regla-verde"></div>
+    <p class="sec-intro">Cada persona aporta algo que las otras dos no tienen. Esa complementariedad es la fortaleza del proyecto. Ningún rol es más importante que otro: sin territorio no hay proyecto, sin metodología no hay diferenciación, sin producción no hay demostración real.</p>
+
+    <div class="grid-3">
+      <div class="persona persona-maria">
+        <div class="persona-inicial inicial-m">M</div>
+        <div class="persona-nombre">María</div>
+        <div class="persona-rol">Directora territorial · Gestora institucional</div>
+        <div>
+          <span class="persona-tag tag-verde">Red Canelones</span>
+          <span class="persona-tag tag-verde">Intendencia</span>
+          <span class="persona-tag tag-verde">Consejos</span>
+          <span class="persona-tag tag-verde">BROU</span>
+        </div>
+        <div class="persona-aporta">
+          Conoce el ecosistema político e institucional de Canelones. Tiene credibilidad ante las autoridades municipales. Abre las puertas que un proyecto técnico solo no puede abrir. Su rol es indispensable para conseguir el espacio y sostener la relación con las instituciones.
+        </div>
+      </div>
+
+      <div class="persona persona-daniel">
+        <div class="persona-inicial inicial-d">D</div>
+        <div class="persona-nombre">Daniel</div>
+        <div class="persona-rol">Director agrícola · Bioinsumos · Producción</div>
+        <div>
+          <span class="persona-tag tag-tierra">Chacra propia</span>
+          <span class="persona-tag tag-tierra">Compost</span>
+          <span class="persona-tag tag-tierra">Biofertilizantes</span>
+        </div>
+        <div class="persona-aporta">
+          Sabe lo que el suelo necesita antes de que el sensor lo mida. Prepara los bioinsumos que multiplican la productividad del sistema. Su chacra es el laboratorio de experimentación donde se prueban variedades y técnicas antes de que lleguen al cajón de un cliente o a un taller.
+        </div>
+      </div>
+
+      <div class="persona persona-fernando">
+        <div class="persona-inicial inicial-f">F</div>
+        <div class="persona-nombre">Fernando</div>
+        <div class="persona-rol">Director técnico · Metodología · Sistema IoT</div>
+        <div>
+          <span class="persona-tag tag-dorado">Symbiosis Fractale</span>
+          <span class="persona-tag tag-dorado">ESP32</span>
+          <span class="persona-tag tag-dorado">Datos</span>
+        </div>
+        <div class="persona-aporta">
+          Desarrolló la metodología Symbiosis Fractale y el sistema de riego inteligente. Aporta el marco científico, los datos, la narrativa que conecta el proyecto local con redes internacionales de agricultura urbana. 35 años enseñando ciencias exactas a nivel universitario.
+        </div>
+      </div>
+    </div>
+
+    <div class="alerta alerta-verde" style="margin-top:20px;">
+      <div class="alerta-etiqueta et-verde">La regla de oro del equipo</div>
+      Cada uno decide en su dominio sin consultar al otro. María decide sobre territorio e instituciones. Daniel decide sobre producción y bioinsumos. Fernando decide sobre metodología y tecnología. Las decisiones que afectan al proyecto en conjunto se toman entre los tres por consenso.
+    </div>
+  </div>
+
+  <!-- ═══ ESPACIO ═══ -->
+  <div class="seccion" id="espacio">
+    <div class="sec-eyebrow">El lugar</div>
+    <h2 class="sec-titulo">El Parque Azul —<br><em>un espacio que espera ser vivido</em></h2>
+    <div class="regla-verde"></div>
+    <p class="sec-intro">El ex Zoológico de Atlántida ya demostró en 2023 que puede ser un espacio agroecológico activo. El Aula Verde 360 es la continuación natural de ese primer paso, con más estructura, más equipo y una metodología que multiplica la productividad.</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-titulo">Lo que el espacio necesita</div>
+        <div class="card-body">
+          Recuperación del predio. Diseño participativo con vecinos. Instalación de los primeros cajones Symbiosis Fractale. Señalización y mobiliario básico reciclado. Punto de compostaje educativo. Área de demostración tecnológica (sensores, panel solar, riego automático).
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-titulo">Lo que el espacio ofrece</div>
+        <div class="card-body">
+          Un laboratorio vivo al que cualquier vecino, escuela o institución puede acceder. Un espacio donde la tecnología y la naturaleza trabajan juntas de forma visible. Un lugar de encuentro intergeneracional: adultos mayores, jóvenes, niños, personas con TEA. Un referente territorial de Atlántida.
+        </div>
+      </div>
+    </div>
+
+    <div class="alerta alerta-tierra" style="margin-top:4px;">
+      <div class="alerta-etiqueta et-tierra">Sobre Pablo y la situación actual</div>
+      El proyecto Aula Verde 360 fue presentado inicialmente con la firma de Fernando y Pablo. Pablo ha dejado de participar activamente. Antes de avanzar con la Intendencia, hay que resolver esa situación formalmente: si Pablo se retira del proyecto, la presentación institucional se hace con el equipo actual (María, Daniel, Fernando). María puede ayudar a navegar eso en el ámbito municipal.
+    </div>
+  </div>
+
+  <!-- ═══ OBJETIVOS ═══ -->
+  <div class="seccion" id="objetivos">
+    <div class="sec-eyebrow">Para qué existimos</div>
+    <h2 class="sec-titulo">Los tres objetivos<br><em>del Aula Verde 360</em></h2>
+    <div class="regla-verde"></div>
+
+    <div class="card">
+      <div class="objetivo">
+        <div class="objetivo-num">1</div>
+        <div>
+          <div class="objetivo-titulo">Generar ingresos propios por formación</div>
+          <div class="objetivo-body">
+            Talleres de agroecología, uso del sistema de sensores, preparación de bioinsumos, diseño de huertas domésticas. Precio accesible para vecinos y familias. Precio institucional para liceos, UTU, UTEC, empresas y organismos públicos. El objetivo es que el nodo sea autosustentable en 12 meses, sin depender de subsidios para funcionar.
+          </div>
+        </div>
+      </div>
+      <div class="objetivo">
+        <div class="objetivo-num">2</div>
+        <div>
+          <div class="objetivo-titulo">Expandir la metodología a todo Canelones</div>
+          <div class="objetivo-body">
+            El Parque Azul de Atlántida no es el destino. Es el punto de partida. Lo que se aprende ahí se replica: cada escuela, liceo, centro CAIF, municipio y comunidad de Canelones que quiera un bancal comunitario recibe la metodología, el acompañamiento y los materiales. María gestiona esa red territorial porque ya tiene las relaciones para hacerlo.
+          </div>
+        </div>
+      </div>
+      <div class="objetivo">
+        <div class="objetivo-num">3</div>
+        <div>
+          <div class="objetivo-titulo">Ser un modelo replicable y reconocido</div>
+          <div class="objetivo-body">
+            El Aula Verde 360 de Atlántida como referente de agricultura urbana comunitaria en Uruguay. Articulado con CURE, UTU, UTEC y potencialmente con redes internacionales de innovación ciudadana (LABiC, Les Cols Verts). No para impresionar a nadie sino para tener el respaldo institucional que abre puertas a financiamiento y a colaboraciones.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ GOBERNANZA ═══ -->
+  <div class="seccion" id="gobernanza">
+    <div class="sec-eyebrow">Cómo nos organizamos</div>
+    <h2 class="sec-titulo">Gobernanza —<br><em>claro desde el principio</em></h2>
+    <div class="regla-verde"></div>
+    <p class="sec-intro">La gobernanza no es burocracia. Es claridad. Cuando los roles están definidos desde el principio, no hay roces, no hay malentendidos, no hay conversaciones incómodas después. Esta propuesta es para discutirla, no para imponerla.</p>
+
+    <div class="pasos">
+      <div class="paso">
+        <div class="paso-num">A</div>
+        <div class="paso-content">
+          <div class="paso-etiqueta">Ahora · Primer paso</div>
+          <div class="paso-titulo">Documento de valores compartidos</div>
+          <div class="paso-body">Una página. Los tres la firmamos. Define: qué aporta cada uno, cómo se toman las decisiones, cómo se distribuyen los ingresos de talleres, y cómo presentamos el proyecto ante terceros (Intendencia, UTU, UTEC, medios). Sin abogados todavía. Solo claridad verbal documentada antes de ir a cualquier reunión institucional.</div>
+        </div>
+      </div>
+
+      <div class="paso">
+        <div class="paso-num">B</div>
+        <div class="paso-content">
+          <div class="paso-etiqueta">Cuando llegue financiamiento público</div>
+          <div class="paso-titulo">Asociación Civil</div>
+          <div class="paso-body">Si la Intendencia de Canelones apoya con espacio, equipamiento o subsidio, formalizamos como Asociación Civil uruguaya. Estatutos simples con roles definidos, decisiones por consenso entre los tres fundadores. Esto da respaldo legal ante cualquier institución pública.</div>
+        </div>
+      </div>
+
+      <div class="paso">
+        <div class="paso-num">C</div>
+        <div class="paso-content">
+          <div class="paso-etiqueta">Cuando haya ingresos sostenidos</div>
+          <div class="paso-titulo">Cooperativa de Trabajo</div>
+          <div class="paso-body">Si los talleres y la expansión a Canelones generan ingresos regulares, la Cooperativa de Trabajo es el modelo ideal en Uruguay. Cada fundador recibe según lo que aporta. Compatible con los valores del proyecto y con el acceso a financiamiento de organismos como INACOOP o ANII.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:20px;">
+      <div class="card-titulo">Cómo se reparten los ingresos de talleres — propuesta inicial</div>
+      <div class="card-body" style="margin-top:8px;">
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-top:12px; text-align:center;">
+          <div style="padding:16px; background:rgba(46,125,50,0.06); border-radius:8px; border:1px solid rgba(46,125,50,0.15);">
+            <div style="font-family:'Lora',serif; font-size:28px; font-weight:700; color:var(--verde); margin-bottom:4px;">33,33%</div>
+            <div style="font-weight:500; color:var(--tinta); margin-bottom:4px;">María</div>
+            <div style="font-size:12px; color:var(--gris);">Gestión territorial, coordinación de talleres, relaciones institucionales</div>
+          </div>
+          <div style="padding:16px; background:rgba(93,64,55,0.06); border-radius:8px; border:1px solid rgba(93,64,55,0.15);">
+            <div style="font-family:'Lora',serif; font-size:28px; font-weight:700; color:var(--tierra); margin-bottom:4px;">33,33%</div>
+            <div style="font-weight:500; color:var(--tinta); margin-bottom:4px;">Daniel</div>
+            <div style="font-size:12px; color:var(--gris);">Producción agrícola, bioinsumos, demostraciones prácticas</div>
+          </div>
+          <div style="padding:16px; background:rgba(249,168,37,0.06); border-radius:8px; border:1px solid rgba(249,168,37,0.2);">
+            <div style="font-family:'Lora',serif; font-size:28px; font-weight:700; color:#7A6000; margin-bottom:4px;">33,33%</div>
+            <div style="font-weight:500; color:var(--tinta); margin-bottom:4px;">Fernando</div>
+            <div style="font-size:12px; color:var(--gris);">Metodología, tecnología, formación técnica, narrativa institucional</div>
+          </div>
+        </div>
+        <div style="margin-top:16px; font-size:13px; color:var(--gris);">
+          <strong style="color:var(--tinta);">Sobre qué se aplican estos porcentajes:</strong> sobre los ingresos netos del nodo, es decir, lo que queda después de cubrir los costos operativos (materiales, semillas, herramientas, gastos de funcionamiento del espacio). No sobre la facturación bruta. Si un taller factura 10.000 pesos y los costos fueron 3.000, se reparten 7.000 en partes iguales: 2.333 cada uno.<br><br>
+          <strong style="color:var(--tinta);">Nota:</strong> esta distribución es una propuesta de partida para discutir. Los porcentajes se ajustan si el aporte real de alguno de los tres cambia con el tiempo. Lo que no es negociable es que esté definido antes de que llegue el primer peso.
+        </div>
+      </div>
+    </div>
+
+    <div class="alerta alerta-dorado" style="margin-top:4px;">
+      <div class="alerta-etiqueta et-dorado">Lo que GuliaLabs aporta y lo que no pide a cambio</div>
+      GuliaLabs (la empresa de Fernando) licencia la metodología Symbiosis Fractale al Aula Verde 360 de forma gratuita, bajo valores compartidos. No cobra royalties ni porcentaje de los ingresos del nodo. Lo que pide a cambio es: que el nodo se identifique como usuario de la metodología, que los datos del sistema sean compartidos para investigación, y que cualquier desarrollo derivado de la metodología quede bajo la misma licencia abierta.
+    </div>
+  </div>
+
+  <!-- ═══ INGRESOS ═══ -->
+  <div class="seccion" id="ingresos">
+    <div class="sec-eyebrow">Cómo nos sostenemos</div>
+    <h2 class="sec-titulo">Fuentes de ingresos —<br><em>autosustentables en 12 meses</em></h2>
+    <div class="regla-verde"></div>
+
+    <div class="ingreso-grid">
+      <div class="ingreso-card">
+        <span class="ingreso-icono">🌱</span>
+        <div class="ingreso-titulo">Talleres al público</div>
+        <div class="ingreso-desc">Agroecología básica, diseño de huertas domésticas, compostaje, uso de sensores. Precio accesible para vecinos. Mínimo 8 personas por taller.</div>
+      </div>
+      <div class="ingreso-card">
+        <span class="ingreso-icono">🏫</span>
+        <div class="ingreso-titulo">Formación institucional</div>
+        <div class="ingreso-desc">Cursos para UTU, UTEC, liceos, escuelas rurales y urbanas, centros CAIF. Precio institucional. Posibilidad de certificación con respaldo universitario (CURE).</div>
+      </div>
+      <div class="ingreso-card">
+        <span class="ingreso-icono">🏢</span>
+        <div class="ingreso-titulo">Empresas e intendencias</div>
+        <div class="ingreso-desc">Programas de RSE, instalación de nodos en espacios corporativos o municipales, asesoramiento en proyectos de alimentación sostenible.</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px;">
+      <div class="card-titulo">Financiamiento complementario — mientras se consolida</div>
+      <div class="card-body">
+        <strong>ANII:</strong> fondo público uruguayo para proyectos de innovación. El Aula Verde 360 califica por su componente tecnológico (ESP32, datos, IoT aplicado a agroecología).<br><br>
+        <strong>Intendencia de Canelones:</strong> si el espacio Parque Azul es cedido por la Intendencia, eso ya es un aporte en especie que reduce significativamente los costos de operación.<br><br>
+        <strong>Uruguay Integra / CAF / UE:</strong> fondos de cooperación que el propio documento Aula Verde 360 ya identifica como fuentes posibles. María tiene la red para acceder a esos fondos.
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ EXPANSIÓN ═══ -->
+  <div class="seccion" id="expansion">
+    <div class="sec-eyebrow">Hacia dónde vamos</div>
+    <h2 class="sec-titulo">Expansión territorial —<br><em>Atlántida · Canelones · Uruguay</em></h2>
+    <div class="regla-verde"></div>
+    <p class="sec-intro">El modelo del Aula Verde 360 no está pensado para quedarse en un solo lugar. Está diseñado para replicarse. Cada nodo que se activa en Canelones fortalece al anterior y abre el siguiente.</p>
+
+    <table class="exp-tabla">
+      <thead>
+        <tr>
+          <th>Etapa</th>
+          <th>Territorio</th>
+          <th>Qué se hace</th>
+          <th>Quién lidera</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1 · 2026</td>
+          <td>Atlántida — Parque Azul</td>
+          <td>Laboratorio vivo con cajones Symbiosis Fractale, sensores, compostaje, banco de semillas. Primeros talleres. Articulación UTU y CURE.</td>
+          <td>María + Daniel + Fernando</td>
+        </tr>
+        <tr>
+          <td>2 · 2026–2027</td>
+          <td>Municipios de Canelones</td>
+          <td>Réplica del modelo en escuelas, liceos y centros CAIF. María gestiona la red de relaciones institucionales. Metodología y acompañamiento técnico de Fernando.</td>
+          <td>María (gestión) + Fernando (metodología)</td>
+        </tr>
+        <tr>
+          <td>3 · 2027</td>
+          <td>Todo Canelones</td>
+          <td>Red de nodos activos en el departamento. Cada nodo con autonomía local pero metodología común. Posible convenio marco con la Intendencia de Canelones.</td>
+          <td>Equipo fundador + gestores locales</td>
+        </tr>
+        <tr>
+          <td>4 · 2028</td>
+          <td>Uruguay</td>
+          <td>El modelo Canelones como referencia nacional. Expansión a otros departamentos. Articulación con redes nacionales (UTEC, UDELAR, CAIF, MIDES).</td>
+          <td>Red Aula Verde Uruguay</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="alerta alerta-verde" style="margin-top:20px;">
+      <div class="alerta-etiqueta et-verde">La ventaja que tiene María en este modelo</div>
+      El rol de María no se agota en Atlántida. A medida que la red crece en Canelones, su función de gestora territorial crece con ella. Es la persona que conoce los actores, las instituciones y las dinámicas de cada municipio. Eso no se aprende en un curso. Es años de trabajo y relaciones que solo ella tiene.
+    </div>
+  </div>
+
+  <!-- ═══ PROPIEDAD ═══ -->
+  <div class="seccion" id="propiedad">
+    <div class="sec-eyebrow">Lo que es de quién</div>
+    <h2 class="sec-titulo">Propiedad intelectual —<br><em>transparencia desde el principio</em></h2>
+    <div class="regla-verde"></div>
+    <p class="sec-intro">Este punto es importante hablarlo claro antes de que el proyecto crezca. No para crear distancias sino para que no haya malentendidos cuando el proyecto valga algo.</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-titulo" style="color:var(--verde);">De GuliaLabs (Fernando)</div>
+        <div class="card-body">
+          La metodología Symbiosis Fractale: el diseño del cajón áureo, la distribución en espiral de Fermat, el sistema de sensores ESP32, el código de programación, los datos acumulados.<br><br>
+          El nombre "Symbiosis Fractale" y "GuliaLabs" registrados como marca.<br><br>
+          El sistema HaaS (Huerta as a Service) y su capa de ciberseguridad.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-titulo" style="color:var(--verde);">Del Aula Verde 360 (los tres)</div>
+        <div class="card-body">
+          El proyecto Aula Verde 360 en sí: su nombre, su historia, su comunidad, sus relaciones institucionales en Canelones.<br><br>
+          Los contenidos pedagógicos que se desarrollen juntos (manuales de talleres, guías de cultivo, materiales educativos).<br><br>
+          Los ingresos generados por las actividades del nodo.
+        </div>
+      </div>
+    </div>
+
+    <div class="card-verde" style="margin-top:4px;">
+      <div class="card-titulo">En términos simples</div>
+      <div class="card-body">
+        Fernando trae el sistema y lo licencia al proyecto de forma gratuita. Si mañana Fernando no está, el Aula Verde 360 puede seguir funcionando con lo que aprendió. Lo que no puede hacer es vender o comercializar la metodología Symbiosis Fractale como si fuera propia. Eso es de GuliaLabs. Todo lo demás que construyan juntos es de los tres.
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PRÓXIMOS PASOS ═══ -->
+  <div class="seccion" id="proximos">
+    <div class="sec-eyebrow">Lo que sigue</div>
+    <h2 class="sec-titulo">Próximos pasos —<br><em>en orden de prioridad</em></h2>
+    <div class="regla-verde"></div>
+
+    <div class="pasos">
+      <div class="paso">
+        <div class="paso-num">1</div>
+        <div class="paso-content">
+          <div class="paso-etiqueta">Esta semana</div>
+          <div class="paso-titulo">Reunión de los tres fundadores</div>
+          <div class="paso-body">Fernando, María y Daniel. Dos horas. Sin agenda pública. Revisar esta propuesta, ajustar lo que no convence, acordar los puntos de la gobernanza y firmar el documento de valores compartidos. Salir con claridad sobre roles y distribución de ingresos.</div>
+        </div>
+      </div>
+      <div class="paso">
+        <div class="paso-num">2</div>
+        <div class="paso-content">
+          <div class="paso-etiqueta">Antes de ir a la Intendencia</div>
+          <div class="paso-titulo">Resolver la situación de Pablo</div>
+          <div class="paso-body">Definir si Pablo sigue formalmente en el proyecto o si se retira. María puede ayudar a navegar eso en el ámbito municipal. Presentarse ante la Intendencia con un equipo claro es mucho más sólido que llegar con ambigüedades.</div>
+        </div>
+      </div>
+      <div class="paso">
+        <div class="paso-num">3</div>
+        <div class="paso-content">
+          <div class="paso-etiqueta">Q2 2026</div>
+          <div class="paso-titulo">Reunión con la Intendencia de Canelones</div>
+          <div class="paso-body">María lleva el documento Aula Verde 360. Fernando aparece como respaldo técnico-metodológico. Ese orden no es casual: en Uruguay la confianza institucional se construye por la red, no por el CV. María abre la puerta, Fernando explica el sistema cuando pregunten.</div>
+        </div>
+      </div>
+      <div class="paso">
+        <div class="paso-num">4</div>
+        <div class="paso-content">
+          <div class="paso-etiqueta">Primavera 2026</div>
+          <div class="paso-titulo">Activación del primer cajón en el Parque Azul</div>
+          <div class="paso-body">Cajón 2 del Symbiosis Fractale (1,62 m × 1,00 m × 0,35 m) plantado en septiembre con las cuatro especies: tomateras, albahacas, calabazas y rabanitos. Sensores ESP32 instalados. Los datos empiezan a acumularse. Eso es el primer producto concreto del nodo.</div>
+        </div>
+      </div>
+      <div class="paso">
+        <div class="paso-num">5</div>
+        <div class="paso-content">
+          <div class="paso-etiqueta">Fin de 2026</div>
+          <div class="paso-titulo">Primer taller público</div>
+          <div class="paso-body">Con el cajón funcionando y los primeros datos visibles, el primer taller tiene algo real que mostrar. No powerpoints. Plantas vivas, sensores en tiempo real, números concretos. Ese es el Aula Verde 360 que se puede replicar en todo Canelones.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ CIERRE ═══ -->
+  <div class="pregunta-final">
+    <h2>Primer borrador formal</h2>
+    <p>Este documento es una propuesta de trabajo para revisión del equipo fundador. Todo lo que no convence se cambia. Todo lo que falta se agrega. El objetivo es salir de la primera reunión con claridad sobre cómo trabajamos juntos.</p>
+    <p style="font-size:13px; color:rgba(255,255,255,0.5);">Fernando Gularte · fernandogularte@gmail.com · +598 093 717 309</p>
+  </div>
+
+</main>
+
+<footer>
+  <div><strong>Aula Verde 360</strong> · Atlántida, Canelones, Urug
